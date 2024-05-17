@@ -18,7 +18,6 @@ export default function Signin() {
                 />
                 </div>
               </a>
-                
                 <input className={styles.inputLogin}
                     type="text"
                     name="login"
@@ -35,6 +34,7 @@ export default function Signin() {
               </button>
               <button className={styles.btnSignUp}>
                     <Link href="signup"><p className={styles.btnSignUpText}>Зарегестрироваться</p></Link>
+
               </button>
             </form>
           </div>
