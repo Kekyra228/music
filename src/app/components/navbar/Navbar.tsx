@@ -1,0 +1,44 @@
+'use client'
+import { useState } from "react";
+import styles from "./navbar.module.css";
+import Image from "next/image";
+
+
+const Navbar = () =>{
+
+const [isOpenBar, setIsOpenBar] = useState(false)
+const openNavBar = () => {
+  setIsOpenBar((isOpenBar)=>!isOpenBar)
+}
+
+ return (
+    <nav className={styles.main_nav}>
+            <Image
+                src="/logo.png"
+                width={113.33}
+                height={17}
+                alt="logo"
+              />
+    <div className={styles.nav_menu}>
+    <img src="./navburger.svg" alt="navburger" onClick={openNavBar}/>
+        {isOpenBar && 
+            <ul className="menu__list">
+            <li className={styles.nav_item}>
+              <a href="#" className={styles.nav_link}>Главное</a>
+            </li>
+            <li className={styles.nav_item}>
+              <a href="#" className={styles.nav_link}>Мой плейлист</a>
+            </li>
+            <li className={styles.nav_item}>
+              <a href="../signin.html" className={styles.nav_link}>Войти</a>
+            </li>
+            <li className={styles.nav_item}>
+            <img src="./exit.svg" width="40px" height="40px" alt="exit" />
+            </li>
+          </ul>}
+      </div>
+      </nav>
+ )
+}
+
+export default Navbar

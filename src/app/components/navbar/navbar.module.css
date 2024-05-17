@@ -1,0 +1,20 @@
+.main_nav{
+    width: 244px;
+    background-color: rgb(28, 28, 28);
+    padding: 20px 0 20px 36px;
+  }
+  .nav_menu{
+    display: block;
+    visibility: visible;
+    margin-top: 50px;
+  }
+  .nav_item {
+    padding: 5px 0;
+    margin-bottom: 16px;
+  }
+  .nav_link {
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }

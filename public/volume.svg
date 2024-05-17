@@ -1,0 +1,11 @@
+<svg width="14.000000" height="18.000000" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs/>
+	<mask id="mask_1_1947" fill="white">
+		<path id="Union" d="M8 0L3 5L0 5L0 13L3 13L8 18L8 0Z" clip-rule="evenodd" fill="" fill-opacity="1.000000" fill-rule="evenodd"/>
+	</mask>
+	<path id="Union" d="M3 13L8 18L8 0L3 5L0 5L0 13L3 13ZM1 12L1 6L3.41422 6L7 2.41425L7 15.5858L3.41422 12L1 12Z" clip-rule="evenodd" fill="#FFFFFF" fill-opacity="1.000000" fill-rule="evenodd"/>
+	<path id="Ellipse 9" d="M11 4.5Q11.59 4.5 12.1 4.93Q12.53 5.3 12.86 5.94Q13.16 6.55 13.33 7.33Q13.5 8.13 13.5 9Q13.5 9.86 13.33 10.66Q13.16 11.44 12.86 12.05Q12.53 12.69 12.1 13.06Q11.59 13.5 11 13.5L11 12.5Q11.22 12.5 11.45 12.3Q11.73 12.06 11.96 11.6Q12.21 11.1 12.35 10.45Q12.5 9.76 12.5 9Q12.5 8.23 12.35 7.54Q12.21 6.89 11.96 6.39Q11.73 5.93 11.45 5.69Q11.22 5.5 11 5.5L11 4.5Z" fill="#FFFFFF" fill-opacity="1.000000" fill-rule="evenodd"/>
+</svg>
