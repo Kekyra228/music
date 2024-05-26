@@ -6,53 +6,64 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  }
-  
-  .content_playlist_title {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    margin-bottom: 24px;
-  } 
-  
-  .playlist_title{
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 24px;
-    letter-spacing: 2px;
-    color: #696969;
-    text-transform: uppercase;
-    display: flex;
-    flex-direction: column;
-    row-gap: 37px;
-  }
-  .list_wrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    overflow-y: auto;
-  }
-.playlistItem{
+}
+
+.content_playlist_title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.playlist_titleAuthor {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 2px;
+  color: #696969;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  row-gap: 37px;
+}
+.playlist_title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 2px;
+  color: #696969;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  row-gap: 37px;
+}
+.list_wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.playlistItem {
   width: 100%;
   display: block;
   margin-bottom: 12px;
 }
-.playlistTrack{
+.playlistTrack {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -67,7 +78,7 @@
   -ms-flex-align: center;
   align-items: center;
 }
-.trackTitle{
+.trackTitle {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -78,9 +89,9 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  width: 300px;
+  width: 259px;
 }
-.trackTitleIcon{
+.trackTitleIcon {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -92,15 +103,15 @@
   justify-content: center;
   margin-right: 17px;
 }
-.trackTitleLink{
+.trackTitleLink {
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
   color: #ffffff;
 }
-.trackAuthor{
-  width: 321px;
+.trackAuthor {
+  width: 350px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -108,7 +119,7 @@
   -ms-flex-pack: start;
   justify-content: flex-start;
 }
-.trackAuthorLink{
+.trackAuthorLink {
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -116,11 +127,11 @@
   color: #ffffff;
   text-align: left;
 }
-.trackAlbum{
+.trackAlbum {
   width: 245px;
 }
 
-.trackAlbumLink{
+.trackAlbumLink {
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -128,18 +139,18 @@
   color: #696969;
 }
 
-.trackTime{
-display: flex;
-align-items: center;
+.trackTime {
+  display: flex;
+  align-items: center;
 }
-.trackTimeLike{
+.trackTimeLike {
   width: 14px;
   height: 12px;
   margin-right: 17px;
   fill: transparent;
   stroke: #696969;
 }
-.trackTimeText{
+.trackTimeText {
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
