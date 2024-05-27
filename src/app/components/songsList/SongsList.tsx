@@ -1,11 +1,12 @@
 import Image from "next/image";
 import styles from "./songlist.module.css";
-import { getTracks } from "@/app/api/userApi";
 import { TrackType } from "@/types/types";
 
-const SongList = async () => {
-  const tracks: TrackType[] = await getTracks();
+type Props = {
+  tracks: TrackType[];
+};
 
+const SongList = async ({ tracks }: Props) => {
   return (
     <div className={styles.centerblock__content_playlist}>
       <div className={styles.content_playlist_title}>
