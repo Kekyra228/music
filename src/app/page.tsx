@@ -1,10 +1,8 @@
-import Image from "next/image";
 import styles from "./page.module.css";
 import Navbar from "./components/navbar/Navbar";
 import SongList from "./components/songsList/SongsList";
 import SearchHeader from "./components/header/Header";
 import SongsCollection from "./components/collection/SongsCollection";
-import DailyCollection from "./components/dailyCollection/DailyCollection";
 import Sorting from "./components/sorting/Sorting";
 import TrackLine from "./components/trackLine/TrackLine";
 import { TrackType } from "@/types/types";

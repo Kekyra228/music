@@ -14,7 +14,7 @@ const Navbar = () => {
     <nav className={styles.main_nav}>
       <Image src="/logo.png" width={113.33} height={17} alt="logo" />
       <div className={styles.nav_menu}>
-        <img src="./navburger.svg" alt="navburger" onClick={openNavBar} />
+        <img className={styles.burger} src="./navburger.svg" alt="navburger" onClick={openNavBar} />
         {isOpenBar && (
           <ul className="menu__list">
             <li className={styles.nav_item}>

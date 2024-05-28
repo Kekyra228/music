@@ -1,6 +1,5 @@
-import { getTracks } from "@/app/api/userApi";
 import styles from "./filter.module.css";
-import { TrackType } from "@/types/types";
+
 type Props = {
   title: string;
   list: string[] | number[];

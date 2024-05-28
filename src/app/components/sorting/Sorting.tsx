@@ -9,9 +9,6 @@ type Props = {
 };
 
 const Sorting = ({ tracks }: Props) => {
-  // const uniqueAuthors = Array.from(
-  //   new Set(tracks.map((track) => track.author))
-  // );
   const filterData = [
     {
       title: "исполнителю",

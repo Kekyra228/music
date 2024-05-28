@@ -7,6 +7,11 @@ type Props = {
 };
 
 const SongList = async ({ tracks }: Props) => {
+  const formatDuration = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+  };
   return (
     <div className={styles.centerblock__content_playlist}>
       <div className={styles.content_playlist_title}>
@@ -57,7 +62,7 @@ const SongList = async ({ tracks }: Props) => {
                     <Image src="/like.svg" width={14} height={12} alt="like" />
                   </div>
                   <span className={styles.trackTimeText}>
-                    {value.duration_in_seconds}
+                    {formatDuration(value.duration_in_seconds)}
                   </span>
                 </div>
               </div>
