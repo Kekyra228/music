@@ -4,9 +4,10 @@ import { TrackType } from "@/types/types";
 
 type Props = {
   tracks: TrackType[];
+  setSong: (value: TrackType) => void;
 };
 
-const SongList = async ({ tracks }: Props) => {
+const SongList = ({ tracks, setSong }: Props) => {
   const formatDuration = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -26,7 +27,11 @@ const SongList = async ({ tracks }: Props) => {
       <div className={styles.list_wrapper}>
         {tracks.map((value, index: number) => {
           return (
-            <div className={styles.playlistItem} key={index}>
+            <div
+              onClick={() => setSong(value)}
+              className={styles.playlistItem}
+              key={index}
+            >
               <div className={styles.playlistTrack}>
                 <div className={styles.trackTitle}>
                   <div className={styles.trackTitleIcon}>
