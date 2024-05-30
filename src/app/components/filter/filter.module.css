@@ -15,7 +15,7 @@
   color: rgb(173, 97, 255);
   border-color: rgb(173, 97, 255);
 }
-.filterBtn:focus {
+.filterBtnActive {
   color: rgb(173, 97, 255);
   border-color: rgb(173, 97, 255);
 }

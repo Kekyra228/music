@@ -1,4 +1,5 @@
 import styles from "./filter.module.css";
+import { clsx } from "clsx";
 
 type Props = {
   title: string;
@@ -11,7 +12,12 @@ type Props = {
 const Filter = ({ title, list, onClick, value, isOpen }: Props) => {
   return (
     <div>
-      <button className={styles.filterBtn} onClick={() => onClick(value)}>
+      <button
+        className={clsx(styles.filterBtn, {
+          [styles.filterBtnActive]: isOpen,
+        })}
+        onClick={() => onClick(value)}
+      >
         {title}
       </button>
       {isOpen && (
