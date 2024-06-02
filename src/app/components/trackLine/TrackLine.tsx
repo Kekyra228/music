@@ -16,6 +16,8 @@ const TrackLine = ({ song }: Props) => {
   const audioRef = useRef<null | HTMLAudioElement>(null);
   const sliderClick = useRef(null);
   const [progress, setProgress] = useState(0);
+  const [isLoop, setIsLoop] = useState<boolean>(false);
+  const [volume, setVolume] = useState<number>(0.5);
 
   const formatDuration = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -54,13 +56,18 @@ const TrackLine = ({ song }: Props) => {
     }
   }, [song]);
 
-  // function songTimeSlider(e) {
-  //   let slider = sliderClick.current.clientWidth;
-  //   const offset = e.nativeEvent.offsetX;
+  function looping() {
+    setIsLoop((isLoop) => !isLoop);
+    audioRef.current.loop = !isLoop;
+  }
 
-  //   const progress = (offset / slider) * 100;
-  //   audioRef.current.currentTime = (progress / 100) * song.length;
-  // }
+  function songTimeSlider(e) {
+    let slider = sliderClick.current.clientWidth;
+    const offset = e.nativeEvent.offsetX;
+
+    const progress = (offset / slider) * 100;
+    audioRef.current.currentTime = (progress / 100) * audioRef.current.duration;
+  }
 
   function nextSong() {
     // if (song < songs.length - 1) {
@@ -73,7 +80,11 @@ const TrackLine = ({ song }: Props) => {
   return (
     <div className={styles.bar}>
       <div className={styles.content}>
-        <div className={styles.playerProgressContain} ref={sliderClick}>
+        <div
+          className={styles.playerProgressContain}
+          onClick={songTimeSlider}
+          ref={sliderClick}
+        >
           <div
             className={styles.playerProgress}
             style={{ width: `${progress + "%"}` }}
@@ -119,8 +130,22 @@ const TrackLine = ({ song }: Props) => {
                   alt="next"
                 />
               </div>
-              <div className={styles.playerControlBtn}>
-                <Image src="/repeat.svg" width={18} height={12} alt="repeat" />
+              <div className={styles.playerControlBtn} onClick={looping}>
+                {isLoop ? (
+                  <Image
+                    src="/repeatUsed.svg"
+                    width={18}
+                    height={12}
+                    alt="repeatUsed"
+                  />
+                ) : (
+                  <Image
+                    src="/repeat.svg"
+                    width={18}
+                    height={12}
+                    alt="repeat"
+                  />
+                )}
               </div>
               <div className={styles.playerControlBtn}>
                 <Image
@@ -148,10 +173,10 @@ const TrackLine = ({ song }: Props) => {
                     ref={audioRef}
                     // onTimeUpdate={durationControl}
                   />
-                  <p className={styles.authorLink}>{song?.name}</p>
+                  <p className={styles.albumLink}>{song?.author}</p>
                 </div>
                 <div className={styles.album}>
-                  <p className={styles.albumLink}>{song?.author}</p>
+                  <p className={styles.authorLink}>{song?.name}</p>
                 </div>
               </div>
 
@@ -169,7 +194,7 @@ const TrackLine = ({ song }: Props) => {
             </div>
           </div>
           <div className={styles.time}>
-            <p>время песни: {formatDuration(song?.duration_in_seconds)}</p>
+            <p>время песни: {formatDuration(audioRef.current?.duration)}</p>
             <p>уже прошло: {formatDuration(currentTimeSong)}</p>
           </div>
           <div className={styles.volumeBlock}>

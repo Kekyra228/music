@@ -28,7 +28,7 @@
   background-color: rgb(219, 34, 226);
 }
 .playerBlock {
-  height: 73px;
+  height: 77px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -131,12 +131,13 @@
   grid-column: 2;
   grid-area: author;
   min-width: 49px;
+  margin-top: 14px;
 }
 
 .authorLink {
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 24px;
   color: #ffffff;
   white-space: nowrap;
@@ -146,11 +147,12 @@
   grid-column: 2;
   grid-area: album;
   min-width: 49px;
+  margin-bottom: 10px;
 }
 .albumLink {
   font-style: normal;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 24px;
   color: #ffffff;
 }
@@ -199,4 +201,5 @@
 
 .time {
   padding-top: 20px;
+  font-size: 10px;
 }

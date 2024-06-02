@@ -27,7 +27,7 @@ export default function Main({ tracks }: Props) {
           </div>
           <SongsCollection />
         </main>
-        <TrackLine song={song} />
+        {song && <TrackLine song={song} />}
       </div>
     </div>
   );
