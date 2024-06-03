@@ -200,6 +200,15 @@
 }
 
 .time {
-  padding-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+  padding-right: 95px;
+  box-sizing: border-box;
   font-size: 10px;
+}
+.volumeControl {
+  color: #ffffff;
+  width: 139px;
 }

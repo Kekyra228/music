@@ -25,13 +25,29 @@ const TrackLine = ({ song }: Props) => {
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
-  function playSong() {
+  // function timeSong() {
+  //   if (audioRef.current === null) {
+  //     audioRef.current?.duration === "-";
+  //   } else {
+  //     formatDuration(audioRef.current?.duration.toFixed());
+  //   }
+  // }
+  useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
     } else {
       audioRef.current.pause();
     }
     setIsPlaying(!isPlaying);
+  }, [song]);
+
+  function playSong() {
+    if (isPlaying) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+    setIsPlaying((prev) => !prev);
   }
 
   // function durationControl() {
@@ -77,9 +93,24 @@ const TrackLine = ({ song }: Props) => {
     // }
     // audioRef.current.curretTime = 0;
   }
+  function error() {
+    alert("Еще не реализовано");
+  }
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
+
   return (
     <div className={styles.bar}>
       <div className={styles.content}>
+        <div className={styles.time}>
+          <p>
+            время песни:{formatDuration(audioRef.current?.duration.toFixed())}
+          </p>
+          <p>уже прошло: {formatDuration(currentTimeSong.toFixed())}</p>
+        </div>
         <div
           className={styles.playerProgressContain}
           onClick={songTimeSlider}
@@ -100,6 +131,7 @@ const TrackLine = ({ song }: Props) => {
                   width={14}
                   height={13}
                   alt="back"
+                  onClick={error}
                 />
               </div>
               <div className={styles.playerControlBtn}>
@@ -128,6 +160,7 @@ const TrackLine = ({ song }: Props) => {
                   width={14}
                   height={13}
                   alt="next"
+                  onClick={error}
                 />
               </div>
               <div className={styles.playerControlBtn} onClick={looping}>
@@ -153,6 +186,7 @@ const TrackLine = ({ song }: Props) => {
                   width={19}
                   height={12}
                   alt="shuffle"
+                  onClick={error}
                 />
               </div>
             </div>
@@ -193,20 +227,21 @@ const TrackLine = ({ song }: Props) => {
               </div>
             </div>
           </div>
-          <div className={styles.time}>
-            <p>время песни: {formatDuration(audioRef.current?.duration)}</p>
-            <p>уже прошло: {formatDuration(currentTimeSong)}</p>
-          </div>
+
           <div className={styles.volumeBlock}>
             <div className={styles.volume}>
               <div className={styles.volumeIcon}>
                 <Image src="/volume.svg" width={13} height={18} alt="next" />
               </div>
-              <div className="volume__progress _btn">
+              <div className={styles.volumeControl}>
                 <input
-                  className="volume__progress-line _btn"
+                  className={styles.volumeControl}
                   type="range"
-                  name="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={volume}
+                  onChange={(e) => setVolume(e.target.value)}
                 />
               </div>
             </div>
