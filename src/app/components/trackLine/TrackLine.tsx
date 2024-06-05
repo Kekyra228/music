@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import styles from "./trackLine.module.css";
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { TrackType } from "@/types/types";
 
 type Props = {
@@ -9,12 +9,10 @@ type Props = {
 };
 
 const TrackLine = ({ song }: Props) => {
-  // const [songs, setSongs] = useState<null | TrackType>(tracks);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  // const [song, setsong] = useState(tracks[2]);
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [currentTimeSong, setCurrentTimeSong] = useState<number>(0);
   const audioRef = useRef<null | HTMLAudioElement>(null);
-  const sliderClick = useRef(null);
+  const sliderClick = useRef<null | HTMLAudioElement>(null);
   const [progress, setProgress] = useState(0);
   const [isLoop, setIsLoop] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.5);
@@ -32,24 +30,24 @@ const TrackLine = ({ song }: Props) => {
   //     formatDuration(audioRef.current?.duration.toFixed());
   //   }
   // }
-  useEffect(() => {
-    if (isPlaying) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-    setIsPlaying(!isPlaying);
-  }, [song]);
+  // const play = () => {
+  //   audioRef.current?.play();
+  // };
 
   function playSong() {
-    if (isPlaying) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current?.pause();
+      } else {
+        audioRef.current?.play();
+      }
     }
-    setIsPlaying((prev) => !prev);
+    setIsPlaying(!isPlaying);
   }
-
+  useEffect(() => {
+    setIsPlaying(isPlaying);
+    audioRef.current?.play();
+  }, [song]);
   // function durationControl() {
   //   const songDuration = audioRef.current.duration;
   //   const songTime = audioRef.current.currentTime;
@@ -66,7 +64,7 @@ const TrackLine = ({ song }: Props) => {
       audioRef.current.addEventListener("timeupdate", () => {
         setCurrentTimeSong(audioRef.current!.currentTime);
         setProgress(
-          (audioRef.current!.currentTime / song.duration_in_seconds) * 100
+          (audioRef.current!.currentTime / audioRef.current!.duration) * 100
         );
       });
     }
@@ -74,15 +72,16 @@ const TrackLine = ({ song }: Props) => {
 
   function looping() {
     setIsLoop((isLoop) => !isLoop);
-    audioRef.current.loop = !isLoop;
+    audioRef.current!.loop = !isLoop;
   }
 
-  function songTimeSlider(e) {
-    let slider = sliderClick.current.clientWidth;
+  function songTimeSlider(e: ChangeEvent<HTMLInputElement>) {
+    let slider = sliderClick.current!.clientWidth;
     const offset = e.nativeEvent.offsetX;
 
     const progress = (offset / slider) * 100;
-    audioRef.current.currentTime = (progress / 100) * audioRef.current.duration;
+    audioRef.current!.currentTime =
+      (progress / 100) * audioRef.current!.duration;
   }
 
   function nextSong() {
@@ -93,7 +92,7 @@ const TrackLine = ({ song }: Props) => {
     // }
     // audioRef.current.curretTime = 0;
   }
-  function error() {
+  function errorMes() {
     alert("Еще не реализовано");
   }
   useEffect(() => {
@@ -107,9 +106,9 @@ const TrackLine = ({ song }: Props) => {
       <div className={styles.content}>
         <div className={styles.time}>
           <p>
-            время песни:{formatDuration(audioRef.current?.duration.toFixed())}
+            {formatDuration(audioRef.current?.duration.toFixed())} /{" "}
+            {formatDuration(currentTimeSong.toFixed())}
           </p>
-          <p>уже прошло: {formatDuration(currentTimeSong.toFixed())}</p>
         </div>
         <div
           className={styles.playerProgressContain}
@@ -131,14 +130,14 @@ const TrackLine = ({ song }: Props) => {
                   width={14}
                   height={13}
                   alt="back"
-                  onClick={error}
+                  onClick={errorMes}
                 />
               </div>
               <div className={styles.playerControlBtn}>
                 {isPlaying ? (
                   <Image
                     onClick={playSong}
-                    src="/play.svg"
+                    src="/pause.svg"
                     width={22}
                     height={20}
                     alt="play"
@@ -146,7 +145,7 @@ const TrackLine = ({ song }: Props) => {
                 ) : (
                   <Image
                     onClick={playSong}
-                    src="/pause.svg"
+                    src="/play.svg"
                     width={15}
                     height={19}
                     alt="next"
@@ -160,7 +159,7 @@ const TrackLine = ({ song }: Props) => {
                   width={14}
                   height={13}
                   alt="next"
-                  onClick={error}
+                  onClick={errorMes}
                 />
               </div>
               <div className={styles.playerControlBtn} onClick={looping}>
@@ -186,7 +185,7 @@ const TrackLine = ({ song }: Props) => {
                   width={19}
                   height={12}
                   alt="shuffle"
-                  onClick={error}
+                  onClick={errorMes}
                 />
               </div>
             </div>
@@ -231,17 +230,19 @@ const TrackLine = ({ song }: Props) => {
           <div className={styles.volumeBlock}>
             <div className={styles.volume}>
               <div className={styles.volumeIcon}>
-                <Image src="/volume.svg" width={13} height={18} alt="next" />
+                <Image src="/volume.svg" width={13} height={18} alt="volume" />
               </div>
               <div className={styles.volumeControl}>
                 <input
-                  className={styles.volumeControl}
+                  className={styles.volumeControlLine}
                   type="range"
                   min="0"
                   max="1"
                   step="0.01"
                   value={volume}
-                  onChange={(e) => setVolume(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setVolume(Number(e.target.value))
+                  }
                 />
               </div>
             </div>
