@@ -48,16 +48,6 @@ const TrackLine = ({ song }: Props) => {
     setIsPlaying(isPlaying);
     audioRef.current?.play();
   }, [song]);
-  // function durationControl() {
-  //   const songDuration = audioRef.current.duration;
-  //   const songTime = audioRef.current.currentTime;
-
-  //   // setsong({
-  //   //   ...song,
-  //   //   progress: (songTime / songDuration) * 100,
-  //   //   length: songDuration,
-  //   // });
-  // }
 
   useEffect(() => {
     if (audioRef.current) {
@@ -101,13 +91,25 @@ const TrackLine = ({ song }: Props) => {
     }
   }, [volume]);
 
+  const duration = audioRef.current?.duration;
+
+  const currentMinutes = Math.floor(currentTimeSong / 60);
+  const currentSeconds = Math.floor(currentTimeSong % 60);
+  const durationMinutes = Math.floor(Number(duration) / 60);
+  const durationSeconds = Math.floor(Number(duration) % 60);
+  const currentTimeFormatted = `${currentMinutes}:${
+    currentSeconds < 10 ? "0" + currentSeconds : currentSeconds
+  }`;
+  const durationFormatted = `${durationMinutes}:${
+    durationSeconds < 10 ? "0" + durationSeconds : durationSeconds
+  }`;
+
   return (
     <div className={styles.bar}>
       <div className={styles.content}>
         <div className={styles.time}>
           <p>
-            {formatDuration(audioRef.current?.duration.toFixed())} /{" "}
-            {formatDuration(currentTimeSong.toFixed())}
+            {currentTimeFormatted} / {durationFormatted}
           </p>
         </div>
         <div
