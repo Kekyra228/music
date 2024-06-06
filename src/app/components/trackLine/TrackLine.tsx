@@ -12,7 +12,7 @@ const TrackLine = ({ song }: Props) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [currentTimeSong, setCurrentTimeSong] = useState<number>(0);
   const audioRef = useRef<null | HTMLAudioElement>(null);
-  const sliderClick = useRef<null | HTMLAudioElement>(null);
+  const sliderClick = useRef<null | HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [isLoop, setIsLoop] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.5);
@@ -65,7 +65,9 @@ const TrackLine = ({ song }: Props) => {
     audioRef.current!.loop = !isLoop;
   }
 
-  function songTimeSlider(e: ChangeEvent<HTMLInputElement>) {
+  function songTimeSlider(
+    e: React.MouseEvent<HTMLDivElement, globalThis.MouseEvent>
+  ): void {
     let slider = sliderClick.current!.clientWidth;
     const offset = e.nativeEvent.offsetX;
 
@@ -156,7 +158,6 @@ const TrackLine = ({ song }: Props) => {
               </div>
               <div className={styles.playerControlBtn}>
                 <Image
-                  onClick={nextSong}
                   src="/nextSong.svg"
                   width={14}
                   height={13}
