@@ -2,13 +2,18 @@
 import Image from "next/image";
 import styles from "./trackLine.module.css";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { TrackType } from "@/types/types";
+import { useAppDispatch, useAppSelector } from "@/hooks/store";
+import {
+  nextTrack,
+  prevTrack,
+  setShuffle,
+} from "@/store/features/playlistSlice";
 
-type Props = {
-  song: TrackType;
-};
-
-const TrackLine = ({ song }: Props) => {
+const TrackLine = () => {
+  const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
+  const isShuffledPlaylist = useAppSelector(
+    (state) => state.playlist.isShuffled
+  );
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [currentTimeSong, setCurrentTimeSong] = useState<number>(0);
   const audioRef = useRef<null | HTMLAudioElement>(null);
@@ -16,23 +21,6 @@ const TrackLine = ({ song }: Props) => {
   const [progress, setProgress] = useState(0);
   const [isLoop, setIsLoop] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.5);
-
-  const formatDuration = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
-  };
-
-  // function timeSong() {
-  //   if (audioRef.current === null) {
-  //     audioRef.current?.duration === "-";
-  //   } else {
-  //     formatDuration(audioRef.current?.duration.toFixed());
-  //   }
-  // }
-  // const play = () => {
-  //   audioRef.current?.play();
-  // };
 
   function playSong() {
     if (audioRef.current) {
@@ -44,10 +32,29 @@ const TrackLine = ({ song }: Props) => {
     }
     setIsPlaying(!isPlaying);
   }
+  const dispatch = useAppDispatch();
+  const handleNext = () => {
+    dispatch(nextTrack());
+  };
+  const handlePrev = () => {
+    dispatch(prevTrack());
+  };
+  const handleShuffle = () => {
+    dispatch(setShuffle());
+  };
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.addEventListener("ended", handleNext);
+    }
+    return () => {
+      audioRef.current?.removeEventListener("ended", handleNext);
+    };
+  }, [currentTrack]);
+
   useEffect(() => {
     setIsPlaying(isPlaying);
     audioRef.current?.play();
-  }, [song]);
+  }, [currentTrack]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -58,8 +65,14 @@ const TrackLine = ({ song }: Props) => {
         );
       });
     }
-  }, [song]);
+  }, [currentTrack]);
 
+  function nextSong() {
+    handleNext();
+  }
+  function prevSong() {
+    handlePrev();
+  }
   function looping() {
     setIsLoop((isLoop) => !isLoop);
     audioRef.current!.loop = !isLoop;
@@ -76,14 +89,6 @@ const TrackLine = ({ song }: Props) => {
       (progress / 100) * audioRef.current!.duration;
   }
 
-  function nextSong() {
-    // if (song < songs.length - 1) {
-    //   setsong(song + 1);
-    // } else {
-    //   setsong(songs[0]);
-    // }
-    // audioRef.current.curretTime = 0;
-  }
   function errorMes() {
     alert("Еще не реализовано");
   }
@@ -105,6 +110,10 @@ const TrackLine = ({ song }: Props) => {
   const durationFormatted = `${durationMinutes}:${
     durationSeconds < 10 ? "0" + durationSeconds : durationSeconds
   }`;
+
+  if (!currentTrack) {
+    return null;
+  }
 
   return (
     <div className={styles.bar}>
@@ -134,7 +143,7 @@ const TrackLine = ({ song }: Props) => {
                   width={14}
                   height={13}
                   alt="back"
-                  onClick={errorMes}
+                  onClick={prevSong}
                 />
               </div>
               <div className={styles.playerControlBtn}>
@@ -162,7 +171,7 @@ const TrackLine = ({ song }: Props) => {
                   width={14}
                   height={13}
                   alt="next"
-                  onClick={errorMes}
+                  onClick={nextSong}
                 />
               </div>
               <div className={styles.playerControlBtn} onClick={looping}>
@@ -183,13 +192,23 @@ const TrackLine = ({ song }: Props) => {
                 )}
               </div>
               <div className={styles.playerControlBtn}>
-                <Image
-                  src="/shuffle.svg"
-                  width={19}
-                  height={12}
-                  alt="shuffle"
-                  onClick={errorMes}
-                />
+                {isShuffledPlaylist ? (
+                  <Image
+                    src="/shuffleMod.svg"
+                    width={19}
+                    height={12}
+                    alt="shuffle"
+                    onClick={handleShuffle}
+                  />
+                ) : (
+                  <Image
+                    src="/shuffle.svg"
+                    width={19}
+                    height={12}
+                    alt="shuffle"
+                    onClick={handleShuffle}
+                  />
+                )}
               </div>
             </div>
 
@@ -205,14 +224,14 @@ const TrackLine = ({ song }: Props) => {
                 </div>
                 <div className={styles.author}>
                   <audio
-                    src={song?.track_file}
+                    src={currentTrack?.track_file}
                     ref={audioRef}
                     // onTimeUpdate={durationControl}
                   />
-                  <p className={styles.albumLink}>{song?.author}</p>
+                  <p className={styles.albumLink}>{currentTrack?.author}</p>
                 </div>
                 <div className={styles.album}>
-                  <p className={styles.authorLink}>{song?.name}</p>
+                  <p className={styles.authorLink}>{currentTrack?.name}</p>
                 </div>
               </div>
 
