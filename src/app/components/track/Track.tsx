@@ -27,15 +27,14 @@ const Track = ({ track, tracks }: Props) => {
       <div className={styles.playlistTrack}>
         <div className={styles.trackTitle}>
           <div className={styles.trackTitleIcon}>
-            <Image src="/songIcon.svg" width={51} height={51} alt="icon" 
-             {isCurrentTrack ? (
+            <Image src="/songIcon.svg" width={51} height={51} alt="icon" />
+            {isCurrentTrack ? (
               isPlaying ? (
                 <span className={styles.roundWithPulse} />
               ) : (
                 <span className={styles.roundNotPulse} />
               )
-            ) : null}/>
-           
+            ) : null}
           </div>
           <div className={styles.trackTitle}>
             <a className={styles.trackTitleLink} href="http://">
