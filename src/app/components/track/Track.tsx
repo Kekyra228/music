@@ -13,7 +13,7 @@ type Props = {
 };
 
 const Track = ({ track, tracks }: Props) => {
-  const isPlayingMod = useAppSelector((state) => state.playlist.isPlaying);
+  const isPlaying = useAppSelector((state) => state.playlist.isPlaying);
   const dispatch = useAppDispatch();
   const { name, author, album, duration_in_seconds } = track;
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
@@ -27,8 +27,15 @@ const Track = ({ track, tracks }: Props) => {
       <div className={styles.playlistTrack}>
         <div className={styles.trackTitle}>
           <div className={styles.trackTitleIcon}>
-            <Image src="/songIcon.svg" width={51} height={51} alt="icon" />
-            {isCurrentTrack ? (isPlayingMod ? "играет" : "не играет") : null}
+            <Image src="/songIcon.svg" width={51} height={51} alt="icon" 
+             {isCurrentTrack ? (
+              isPlaying ? (
+                <span className={styles.roundWithPulse} />
+              ) : (
+                <span className={styles.roundNotPulse} />
+              )
+            ) : null}/>
+           
           </div>
           <div className={styles.trackTitle}>
             <a className={styles.trackTitleLink} href="http://">

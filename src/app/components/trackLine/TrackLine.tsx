@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/store";
 import {
   nextTrack,
   prevTrack,
+  setIsPlaying,
   setShuffle,
 } from "@/store/features/playlistSlice";
 
@@ -14,7 +15,8 @@ const TrackLine = () => {
   const isShuffledPlaylist = useAppSelector(
     (state) => state.playlist.isShuffled
   );
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const isPlaying = useAppSelector((state) => state.playlist.isPlaying);
+  // const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [currentTimeSong, setCurrentTimeSong] = useState<number>(0);
   const audioRef = useRef<null | HTMLAudioElement>(null);
   const sliderClick = useRef<null | HTMLDivElement>(null);
@@ -29,8 +31,8 @@ const TrackLine = () => {
       } else {
         audioRef.current?.play();
       }
+      dispatch(setIsPlaying());
     }
-    setIsPlaying(!isPlaying);
   }
   const dispatch = useAppDispatch();
   const handleNext = () => {
@@ -52,8 +54,8 @@ const TrackLine = () => {
   }, [currentTrack]);
 
   useEffect(() => {
-    setIsPlaying(isPlaying);
     audioRef.current?.play();
+    dispatch(setIsPlaying());
   }, [currentTrack]);
 
   useEffect(() => {
