@@ -34,6 +34,13 @@ const TrackLine = () => {
       dispatch(setIsPlaying());
     }
   }
+  useEffect(() => {
+    if (!isPlaying) {
+      dispatch(setIsPlaying());
+    }
+    audioRef.current?.play();
+  }, [currentTrack]);
+
   const dispatch = useAppDispatch();
   const handleNext = () => {
     dispatch(nextTrack());
@@ -51,11 +58,6 @@ const TrackLine = () => {
     return () => {
       audioRef.current?.removeEventListener("ended", handleNext);
     };
-  }, [currentTrack]);
-
-  useEffect(() => {
-    audioRef.current?.play();
-    dispatch(setIsPlaying());
   }, [currentTrack]);
 
   useEffect(() => {

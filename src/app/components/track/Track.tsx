@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./track.module.css";
 import { formatDuration } from "@/utils/formatDuration";
 import { TrackType } from "@/types/types";
@@ -27,14 +27,17 @@ const Track = ({ track, tracks }: Props) => {
       <div className={styles.playlistTrack}>
         <div className={styles.trackTitle}>
           <div className={styles.trackTitleIcon}>
-            <Image src="/songIcon.svg" width={51} height={51} alt="icon" />
-            {isCurrentTrack ? (
-              isPlaying ? (
-                <span className={styles.roundWithPulse} />
+            <div className={styles.trackIcon}>
+              {isCurrentTrack ? (
+                isPlaying ? (
+                  <span className={styles.roundWithPulse} />
+                ) : (
+                  <span className={styles.roundNotPulse} />
+                )
               ) : (
-                <span className={styles.roundNotPulse} />
-              )
-            ) : null}
+                <Image src="/songIcon.svg" width={51} height={51} alt="icon" />
+              )}
+            </div>
           </div>
           <div className={styles.trackTitle}>
             <a className={styles.trackTitleLink} href="http://">
