@@ -7,6 +7,13 @@ type PlaylistStateType = {
   tracks: TrackType[];
   isShuffled: boolean;
   shuffledPlaylist: TrackType[];
+  searchFilter: {
+    author: string[];
+    genre: string[];
+    orderSorting: string;
+    searchString: string;
+  };
+  filtredPlaylist: TrackType[];
 };
 
 const initialState: PlaylistStateType = {
@@ -15,6 +22,13 @@ const initialState: PlaylistStateType = {
   tracks: [],
   isShuffled: false,
   shuffledPlaylist: [],
+  searchFilter: {
+    author: [],
+    genre: [],
+    orderSorting: "По умолчанию",
+    searchString: "",
+  },
+  filtredPlaylist: [],
 };
 
 const playlistSlice = createSlice({
@@ -57,6 +71,60 @@ const playlistSlice = createSlice({
     setIsPlaying: (state) => {
       state.isPlaying = !state.isPlaying;
     },
+    setPlaylist: (state, action: PayloadAction<{ tracks: TrackType[] }>) => {
+      state.tracks = action.payload.tracks;
+      state.filtredPlaylist = action.payload.tracks;
+    },
+    setFilter: (
+      state,
+      action: PayloadAction<{
+        author?: string[];
+        genre?: string[];
+        orderSorting?: string;
+        searchString?: string;
+      }>
+    ) => {
+      state.searchFilter = {
+        author: action.payload.author || state.searchFilter.author,
+        genre: action.payload.genre || state.searchFilter.genre,
+        orderSorting:
+          action.payload.orderSorting || state.searchFilter.orderSorting,
+        searchString:
+          action.payload.searchString || state.searchFilter.searchString,
+      };
+      const filterTracks = [...state.tracks].filter((track) => {
+        const searchString = track.name
+          .toLocaleLowerCase()
+          .includes(state.searchFilter.searchString.toLocaleLowerCase());
+        const hasAuthorFilter =
+          state.searchFilter.author.length > 0
+            ? state.searchFilter.author.includes(track.author)
+            : true;
+        const hasGenreFilter =
+          state.searchFilter.genre.length > 0
+            ? state.searchFilter.genre.includes(track.genre)
+            : true;
+        return searchString && hasAuthorFilter && hasGenreFilter;
+      });
+      switch (state.searchFilter.orderSorting) {
+        case "Сначала новые":
+          filterTracks.sort(
+            (a, b) =>
+              new Date(b.release_date).getTime() -
+              new Date(a.release_date).getTime()
+          );
+          break;
+        case "Сначала старые":
+          filterTracks.sort(
+            (a, b) =>
+              new Date(a.release_date).getTime() -
+              new Date(b.release_date).getTime()
+          );
+          break;
+        default:
+          break;
+      }
+    },
   },
 });
 
@@ -66,5 +134,7 @@ export const {
   prevTrack,
   setShuffle,
   setIsPlaying,
+  setFilter,
+  setPlaylist,
 } = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;

@@ -41,4 +41,5 @@
 .listItem:hover {
   color: rgb(173, 97, 255);
   text-decoration: underline;
+  cursor: pointer;
 }
