@@ -124,6 +124,7 @@ const playlistSlice = createSlice({
         default:
           break;
       }
+      state.filtredPlaylist = filterTracks;
     },
   },
 });

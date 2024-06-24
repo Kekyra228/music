@@ -19,7 +19,7 @@ export default function Main({ tracks }: Props) {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(setPlaylist({ tracks }));
-  }, [dispatch, tracks]);
+  }, [tracks]);
   const filtredTracks = useAppSelector(
     (store) => store.playlist.filtredPlaylist
   );

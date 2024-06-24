@@ -19,7 +19,7 @@ const Sorting = ({ tracks }: Props) => {
     },
     {
       title: "году выпуска",
-      list: ["По умолчанию...", "Сначала новые", "Сначала старые"],
+      list: ["По умолчанию", "Сначала новые", "Сначала старые"],
       value: "release",
       selected: useAppSelector(
         (store) => store.playlist.searchFilter.orderSorting
