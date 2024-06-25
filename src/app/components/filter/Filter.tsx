@@ -22,7 +22,7 @@ const Filter = ({
 }: Props) => {
   const dispatch = useAppDispatch();
   const toggleFiler = (item: string) => {
-    if ((value = "release")) {
+    if (value === "release") {
       dispatch(setFilter({ orderSorting: item }));
       return;
     }
@@ -43,7 +43,7 @@ const Filter = ({
         onClick={() => onClick(value)}
       >
         {selected.length > 0 && value !== "release" ? (
-          <div>{selected.length}</div>
+          <div className={styles.filterCount}>{selected.length}</div>
         ) : null}
         {title}
       </button>

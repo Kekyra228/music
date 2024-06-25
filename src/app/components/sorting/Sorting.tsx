@@ -15,14 +15,16 @@ const Sorting = ({ tracks }: Props) => {
       title: "исполнителю",
       list: Array.from(new Set(tracks.map((track) => track.author))),
       value: "author",
-      selected: useAppSelector((store) => store.playlist.searchFilter.author),
+      selected: Array.from(
+        useAppSelector((store) => store.playlist.searchFilter.author)
+      ),
     },
     {
       title: "году выпуска",
       list: ["По умолчанию", "Сначала новые", "Сначала старые"],
       value: "release",
-      selected: useAppSelector(
-        (store) => store.playlist.searchFilter.orderSorting
+      selected: Array.from(
+        useAppSelector((store) => store.playlist.searchFilter.orderSorting)
       ),
     },
     {

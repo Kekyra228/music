@@ -9,7 +9,7 @@ import TrackLine from "../trackLine/TrackLine";
 import styles from "./main.module.css";
 import { useAppDispatch, useAppSelector } from "@/hooks/store";
 import { setPlaylist } from "@/store/features/playlistSlice";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 type Props = {
   tracks: TrackType[];
@@ -17,9 +17,18 @@ type Props = {
 
 export default function Main({ tracks }: Props) {
   const dispatch = useAppDispatch();
+  // function renderPlaylist() {
+  //   const memoized = useCallback(() => {
+  //     dispatch(setPlaylist({ tracks }));
+  //   }, [tracks]);
+  // }
+  // useEffect(() => {
+  //   memoized();
+  // }, [memoized]);
   useEffect(() => {
     dispatch(setPlaylist({ tracks }));
   }, [tracks]);
+
   const filtredTracks = useAppSelector(
     (store) => store.playlist.filtredPlaylist
   );

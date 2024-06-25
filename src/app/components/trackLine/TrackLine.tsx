@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import styles from "./trackLine.module.css";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/store";
 import {
   nextTrack,
@@ -92,6 +92,17 @@ const TrackLine = () => {
     audioRef.current!.currentTime =
       (progress / 100) * audioRef.current!.duration;
   }
+
+  // const songTimeSlider = useCallback(( e: React.MouseEvent<HTMLDivElement, globalThis.MouseEvent>
+  // ): void )=>{
+  //   let slider = sliderClick.current!.clientWidth;
+  //   const offset = e.nativeEvent.offsetX;
+
+  //   const progress = (offset / slider) * 100;
+  //   audioRef.current!.currentTime =
+  //     (progress / 100) * audioRef.current!.duration;
+  // }
+  // },[])
 
   function errorMes() {
     alert("Еще не реализовано");
