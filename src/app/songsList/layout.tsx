@@ -13,8 +13,8 @@ export default function SongsLayout({
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <main className={styles.main}>
-          <Navbar />
+        <main className={styles.main}>    
+          <Navbar />     
           <div className={styles.centerblock__content}>{children}</div>
           <SongsCollection />
         </main>

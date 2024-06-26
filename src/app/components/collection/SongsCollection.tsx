@@ -12,14 +12,14 @@ const SongsCollection = () => {
         <div className={styles.list_sidebar}>
           <div className={styles.item_sidebar}>
             <a className={styles.link_sidebar} href="#">
-              <Link href="songsList/collection/1">
+              <Link href="/songsList/collection/1">
                 <Image src="/daily.png" width={250} height={150} alt="daily" />
               </Link>
             </a>
           </div>
           <div className={styles.item_sidebar}>
             <a className={styles.link_sidebar} href="#">
-              <Link href="songsList/collection/2">
+              <Link href="/songsList/collection/2">
                 <Image
                   src="/100songs.png"
                   width={250}
@@ -31,7 +31,7 @@ const SongsCollection = () => {
           </div>
           <div className={styles.item_sidebar}>
             <a className={styles.link_sidebar} href="#">
-              <Link href="songsList/collection/3">
+              <Link href="/songsList/collection/3">
                 <Image
                   src="/chargesongs.png"
                   width={250}
