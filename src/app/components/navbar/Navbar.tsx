@@ -25,9 +25,9 @@ const Navbar = () => {
         {isOpenBar && (
           <ul className="menu__list">
             <li className={styles.nav_item}>
-              <a href="#" className={styles.nav_link}>
+              <Link href="/" className={styles.nav_link}>
                 Главное
-              </a>
+              </Link>
             </li>
             <li className={styles.nav_item}>
               <a href="#" className={styles.nav_link}>

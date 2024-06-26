@@ -1,6 +1,7 @@
 import SongsCollection from "../components/collection/SongsCollection";
 import SearchHeader from "../components/header/Header";
 import Navbar from "../components/navbar/Navbar";
+import Sorting from "../components/sorting/Sorting";
 import TrackLine from "../components/trackLine/TrackLine";
 import styles from "./layout.module.css";
 
