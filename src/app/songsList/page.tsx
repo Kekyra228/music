@@ -1,6 +1,8 @@
 import { TrackType } from "@/types/types";
-import SongList from "../app/components/songsList/SongsList";
 import { getTracks } from "@/app/api/userApi";
+import SearchHeader from "../components/header/Header";
+import Sorting from "../components/sorting/Sorting";
+import Main from "../components/main/Main";
 
 export default async function MainPageSongs() {
   let tracks: TrackType[] = [];
@@ -13,5 +15,11 @@ export default async function MainPageSongs() {
         ? "Ошибка при загрузке треков. " + err.message
         : "Неизвестная ошибка";
   }
-  return <SongList tracks={tracks} />;
+  return (
+    <>
+      <SearchHeader />
+      <Sorting />
+      <Main tracks={tracks} />
+    </>
+  );
 }

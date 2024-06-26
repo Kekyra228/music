@@ -1,7 +1,8 @@
-import SongsCollection from "../app/components/collection/SongsCollection";
-import Navbar from "../app/components/navbar/Navbar";
-import TrackLine from "../app/components/trackLine/TrackLine";
-import styles from "./songlist.module.css";
+import SongsCollection from "../components/collection/SongsCollection";
+import SearchHeader from "../components/header/Header";
+import Navbar from "../components/navbar/Navbar";
+import TrackLine from "../components/trackLine/TrackLine";
+import styles from "./layout.module.css";
 
 export default function SongsLayout({
   children,

@@ -60,17 +60,21 @@ const TrackLine = () => {
     };
   }, [currentTrack]);
 
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.addEventListener("timeupdate", () => {
-        setCurrentTimeSong(audioRef.current!.currentTime);
-        setProgress(
-          (audioRef.current!.currentTime / audioRef.current!.duration) * 100
-        );
-      });
-    }
-  }, [currentTrack]);
+  // useEffect(() => {
+  //   if (audioRef.current) {
+  //     audioRef.current.addEventListener("timeupdate", () => {
+  //       setCurrentTimeSong(audioRef.current!.currentTime);
+  //       setProgress(
+  //         (audioRef.current!.currentTime / audioRef.current!.duration) * 100
+  //       );
+  //     });
+  //   }
+  // }, [currentTrack]);
 
+  function setCurrentTime(currentTime: number, duration: number) {
+    setCurrentTimeSong(currentTime);
+    setProgress((currentTime / duration) * 100);
+  }
   function nextSong() {
     handleNext();
   }
@@ -241,7 +245,12 @@ const TrackLine = () => {
                   <audio
                     src={currentTrack?.track_file}
                     ref={audioRef}
-                    // onTimeUpdate={durationControl}
+                    onTimeUpdate={(e) =>
+                      setCurrentTime(
+                        e.currentTarget.currentTime,
+                        e.currentTarget.duration
+                      )
+                    }
                   />
                   <p className={styles.albumLink}>{currentTrack?.author}</p>
                 </div>

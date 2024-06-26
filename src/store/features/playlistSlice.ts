@@ -93,9 +93,11 @@ const playlistSlice = createSlice({
           action.payload.searchString || state.searchFilter.searchString,
       };
       const filterTracks = [...state.tracks].filter((track) => {
-        const searchString = track.name
-          .toLocaleLowerCase()
-          .includes(state.searchFilter.searchString.toLocaleLowerCase());
+        const searchString =
+          // track.author &&
+          track.name
+            .toLocaleLowerCase()
+            .includes(state.searchFilter.searchString.toLocaleLowerCase());
         const hasAuthorFilter =
           state.searchFilter.author.length > 0
             ? state.searchFilter.author.includes(track.author)

@@ -1,8 +1,26 @@
 import Link from "next/link";
 import styles from "./signin.module.css";
 import Image from "next/image";
+import { logon } from "@/app/api/logonApi";
 
-export default function Signin() {
+type Props = {
+  params: {
+    login: string;
+    password: string | number;
+  };
+};
+export default function Signin({ params }: Props) {
+  let error: string | null = null;
+  const logonUser = async () => {
+    try {
+      await logon(params.login, params.password);
+    } catch (err: unknown) {
+      error =
+        err instanceof Error
+          ? "Ошибка при загрузке треков. " + err.message
+          : "Неизвестная ошибка";
+    }
+  };
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>

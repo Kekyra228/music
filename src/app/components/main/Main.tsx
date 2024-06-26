@@ -32,20 +32,5 @@ export default function Main({ tracks }: Props) {
   const filtredTracks = useAppSelector(
     (store) => store.playlist.filtredPlaylist
   );
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <main className={styles.main}>
-          <Navbar />
-          <div className={styles.centerblock__content}>
-            <SearchHeader />
-            <Sorting tracks={filtredTracks} />
-            <SongList tracks={filtredTracks} />
-          </div>
-          <SongsCollection />
-        </main>
-        <TrackLine />
-      </div>
-    </div>
-  );
+  return <SongList tracks={filtredTracks} />;
 }

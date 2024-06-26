@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Filter from "../filter/Filter";
 import styles from "./sorting.module.css";
 import { TrackType } from "@/types/types";
@@ -9,33 +9,41 @@ type Props = {
   tracks: TrackType[];
 };
 
-const Sorting = ({ tracks }: Props) => {
-  const filterData = [
-    {
-      title: "исполнителю",
-      list: Array.from(new Set(tracks.map((track) => track.author))),
-      value: "author",
-      selected: Array.from(
-        useAppSelector((store) => store.playlist.searchFilter.author)
-      ),
-    },
-    {
-      title: "году выпуска",
-      list: ["По умолчанию", "Сначала новые", "Сначала старые"],
-      value: "release",
-      selected: Array.from(
-        useAppSelector((store) => store.playlist.searchFilter.orderSorting)
-      ),
-    },
-    {
-      title: "жанру",
-      list: Array.from(new Set(tracks.map((track) => track.genre))),
-      value: "genre",
-      selected: Array.from(
-        useAppSelector((store) => store.playlist.searchFilter.genre)
-      ),
-    },
-  ];
+const Sorting = () => {
+  const tracks = useAppSelector((store) => store.playlist.tracks);
+  const selectedAuthor = Array.from(
+    useAppSelector((store) => store.playlist.searchFilter.author)
+  );
+  const selectedRelease = Array.from(
+    useAppSelector((store) => store.playlist.searchFilter.orderSorting)
+  );
+  const selectedGenre = Array.from(
+    useAppSelector((store) => store.playlist.searchFilter.genre)
+  );
+
+  const filterData = useMemo(
+    () => [
+      {
+        title: "исполнителю",
+        list: Array.from(new Set(tracks.map((track) => track.author))),
+        value: "author",
+        selected: selectedAuthor,
+      },
+      {
+        title: "году выпуска",
+        list: ["По умолчанию", "Сначала новые", "Сначала старые"],
+        value: "release",
+        selected: selectedRelease,
+      },
+      {
+        title: "жанру",
+        list: Array.from(new Set(tracks.map((track) => track.genre))),
+        value: "genre",
+        selected: selectedGenre,
+      },
+    ],
+    [selectedAuthor, selectedGenre, selectedRelease, tracks]
+  );
   const [filterValue, setFilterValue] = useState<string | null>(null);
   const handleFilterValue = (value: string) => {
     setFilterValue((prev) => (prev === value ? null : value));
