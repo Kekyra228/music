@@ -30,14 +30,14 @@ const Navbar = () => {
               </Link>
             </li>
             <li className={styles.nav_item}>
-              <Link href="/songsList/collection/4" className={styles.nav_link}>
+              <Link href="/songsList/userSongs" className={styles.nav_link}>
                 Мой плейлист
               </Link>
             </li>
             <li className={styles.nav_item}>
-              <a href="../signin.html" className={styles.nav_link}>
+              <Link href="signin" className={styles.nav_link}>
                 Войти
-              </a>
+              </Link>
             </li>
             <li className={styles.nav_item}>
               <Link href="signin">

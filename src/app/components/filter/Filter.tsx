@@ -1,7 +1,9 @@
+"use client";
 import { useAppDispatch } from "@/hooks/store";
 import styles from "./filter.module.css";
 import { clsx } from "clsx";
 import { setFilter } from "@/store/features/playlistSlice";
+import { useState } from "react";
 
 type Props = {
   title: string;
@@ -33,6 +35,11 @@ const Filter = ({
           : [...selected, item],
       })
     );
+    selectFilter(item);
+  };
+  const [isActive, setIsActive] = useState(false);
+  const selectFilter = (item: string) => {
+    setIsActive((isActive) => !isActive);
   };
   return (
     <div>
@@ -49,11 +56,14 @@ const Filter = ({
       </button>
       {isOpen && (
         <ul className={styles.list}>
+          {/* {isActive && ()} */}
           {list.map((item, index) => (
             <li
-              className={styles.listItem}
               key={index}
               onClick={() => toggleFiler(item)}
+              className={clsx(styles.listItem, {
+                [styles.listItemActive]: isActive,
+              })}
             >
               {item}
             </li>

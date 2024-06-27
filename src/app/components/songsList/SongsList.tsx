@@ -20,6 +20,7 @@ const SongList = ({ tracks }: Props) => {
       </div>
 
       <div className={styles.list_wrapper}>
+        {tracks.length === 0 ? "Треков не найдено" : ""}
         {tracks.map((value) => (
           <Track key={value.id} track={value} tracks={tracks} />
         ))}

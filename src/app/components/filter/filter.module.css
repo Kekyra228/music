@@ -38,6 +38,9 @@
   font-size: 20px;
   font-weight: 400;
 }
+.listItemActive {
+  color: rgb(173, 97, 255);
+}
 .listItem:hover {
   color: rgb(173, 97, 255);
   text-decoration: underline;

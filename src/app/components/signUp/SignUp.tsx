@@ -3,26 +3,29 @@ import Link from "next/link";
 import styles from "./signup.module.css";
 import Image from "next/image";
 import { authorize } from "@/app/api/authApi";
+import { useState } from "react";
 
 type Props = {
   params: {
-    name: string;
-    login: string;
-    password: string | number;
+    email: string;
+    password: string;
+    username: string
   };
 };
 export default function SignUp({ params }: Props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   let error: string | null = null;
   const authUser = async () => {
     try {
-      await authorize(params.name, params.login, params.password);
+      await authorize(params.email, params.password, params.username);
     } catch (err: unknown) {
       error =
-        err instanceof Error
-          ? "Ошибка при загрузке треков. " + err.message
-          : "Неизвестная ошибка";
+        err instanceof Error ? "Ошибка" + err.message : "Неизвестная ошибка";
     }
   };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -42,18 +45,21 @@ export default function SignUp({ params }: Props) {
               className={styles.inputLogin}
               type="text"
               name="login"
+              value={email}
               placeholder="Почта"
             />
             <input
               className={styles.inputLogin}
               type="password"
               name="password"
+              value={password}
               placeholder="Пароль"
             />
             <input
               className={styles.inputLogin}
               type="password"
               name="password"
+              value={password}
               placeholder="Повторите пароль"
             />
             <button className={styles.btnSignup}>

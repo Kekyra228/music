@@ -1,16 +1,16 @@
 export async function authorize(
-  name: string,
-  login: string,
-  password: string | number
+  email: string,
+  password: string,
+  username: string
 ) {
   const response = await fetch(
     "https://skypro-music-api.skyeng.tech/user/signup/",
     {
       method: "POST",
       body: JSON.stringify({
-        name,
-        login,
+        email,
         password,
+        username,
       }),
     }
   );
