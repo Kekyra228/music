@@ -4,6 +4,7 @@ import styles from "./songscollection.module.css";
 import Link from "next/link";
 // import { useInitializeLikedTracks } from "@/hooks/likes";
 import { useAppSelector } from "@/hooks/store";
+import User from "../user/User";
 
 const SongsCollection = () => {
   // useInitializeLikedTracks();
@@ -13,10 +14,10 @@ const SongsCollection = () => {
   // }
   return (
     <div className={styles.main_sidebar}>
-      <div className={styles.sidebarExit}>
+      {/* <div className={styles.sidebarExit}>
         <Image src="/exit.svg" width={40} height={40} alt="play" />
-        {/* <p>{userName}</p> */}
-      </div>
+      </div> */}
+      <User />
       <div className={styles.block_sidebar}>
         <div className={styles.list_sidebar}>
           <div className={styles.item_sidebar}>

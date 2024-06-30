@@ -1,4 +1,3 @@
-"use client";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./store";
 import { getFavoriteTracks } from "@/store/features/playlistSlice";
