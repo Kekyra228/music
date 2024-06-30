@@ -11,12 +11,12 @@ export async function getTracks() {
   return response.json();
 }
 
-export async function getFavoriteTracks() {
+export async function fetchFavoriteTracks(access: string) {
   const response = await fetch(
     "https://skypro-music-api.skyeng.tech/catalog/track/favorite/all/",
     {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${access}`,
       },
     }
   );

@@ -16,7 +16,7 @@ const Navbar = () => {
       <div className={styles.nav_menu}>
         <Image
           className={styles.burger}
-          src="./navburger.svg"
+          src="/navburger.svg"
           width={20}
           height={10}
           alt="navburger"

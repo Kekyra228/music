@@ -86,16 +86,17 @@ const TrackLine = () => {
     audioRef.current!.loop = !isLoop;
   }
 
-  function songTimeSlider(
-    e: React.MouseEvent<HTMLDivElement, globalThis.MouseEvent>
-  ): void {
-    let slider = sliderClick.current!.clientWidth;
-    const offset = e.nativeEvent.offsetX;
+  const songTimeSlider = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, globalThis.MouseEvent>): void => {
+      let slider = sliderClick.current!.clientWidth;
+      const offset = e.nativeEvent.offsetX;
 
-    const progress = (offset / slider) * 100;
-    audioRef.current!.currentTime =
-      (progress / 100) * audioRef.current!.duration;
-  }
+      const progress = (offset / slider) * 100;
+      audioRef.current!.currentTime =
+        (progress / 100) * audioRef.current!.duration;
+    },
+    []
+  );
 
   // const songTimeSlider = useCallback(( e: React.MouseEvent<HTMLDivElement, globalThis.MouseEvent>
   // ): void )=>{
@@ -157,7 +158,6 @@ const TrackLine = () => {
             <div className={styles.playerControl}>
               <div className={styles.playerControlBtn}>
                 <Image
-                  // onClick={backSong}
                   src="/back.svg"
                   width={14}
                   height={13}
