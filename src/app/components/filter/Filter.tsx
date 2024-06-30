@@ -35,12 +35,12 @@ const Filter = ({
           : [...selected, item],
       })
     );
-    selectFilter(item);
+    // selectFilter(item);
   };
-  const [isActive, setIsActive] = useState(false);
-  const selectFilter = (item: string) => {
-    setIsActive((isActive) => !isActive);
-  };
+  // const [isActive, setIsActive] = useState(false);
+  // const selectFilter = (item: string) => {
+  //   setIsActive((isActive) => !isActive);
+  // };
   return (
     <div>
       <button
@@ -61,9 +61,7 @@ const Filter = ({
             <li
               key={index}
               onClick={() => toggleFiler(item)}
-              className={clsx(styles.listItem, {
-                [styles.listItemActive]: isActive,
-              })}
+              className={styles.listItem}
             >
               {item}
             </li>
