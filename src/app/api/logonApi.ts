@@ -48,3 +48,25 @@ export async function fetchTokens({ email, password }: SigninFormTypes) {
   const responseData = await response.json();
   return responseData;
 }
+
+export async function fetchUpdateTokens(refresh: string) {
+  const response = await fetch(
+    "https://skypro-music-api.skyeng.tech/user/token/refresh/",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        refresh,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (response.status === 400) {
+    throw new Error("Неверный токен");
+  } else if (!response.ok) {
+    throw new Error("Заполните поля");
+  }
+  const responseData = await response.json();
+  return responseData;
+}

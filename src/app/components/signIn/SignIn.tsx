@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 type Props = {
   params: {
     email: string;
-    password: string | number;
+    password: string;
   };
 };
 export default function Signin({ params }: Props) {

@@ -1,3 +1,4 @@
+import { authorize } from "@/app/api/authApi";
 import { fetchTokens, fetchUser } from "@/app/api/logonApi";
 import { StaredUserType } from "@/types/types";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -6,6 +7,19 @@ type SigninFormTypes = {
   email: string;
   password: string;
 };
+type SignUpFormTypes = {
+  email: string;
+  password: string;
+  username: string;
+};
+
+export const createUser = createAsyncThunk(
+  "user/createUser",
+  async ({ email, password, username }: SignUpFormTypes) => {
+    const newUser = await authorize({ email, password, username });
+    return newUser;
+  }
+);
 
 export const getUser = createAsyncThunk(
   "user/getUser",
@@ -24,6 +38,7 @@ export const getTokens = createAsyncThunk(
 );
 
 type AuthStateType = {
+  newUser: null | StaredUserType;
   user: null | StaredUserType;
   tokens: {
     access: string | null;
@@ -32,6 +47,7 @@ type AuthStateType = {
 };
 
 const initialState: AuthStateType = {
+  newUser: null,
   user: null,
   tokens: {
     access: null,
@@ -68,6 +84,12 @@ const authSlice = createSlice({
         ) => {
           state.tokens.access = action.payload.access;
           state.tokens.refresh = action.payload.refresh;
+        }
+      )
+      .addCase(
+        createUser.fulfilled,
+        (state, action: PayloadAction<StaredUserType>) => {
+          state.newUser = action.payload;
         }
       );
   },
