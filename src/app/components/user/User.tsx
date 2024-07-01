@@ -1,11 +1,18 @@
+"use client";
+import { useInitializeLikedTracks } from "@/hooks/likes";
 import styles from "./user.module.css";
 import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "@/hooks/store";
 
 function User() {
+  useInitializeLikedTracks();
+  const userName = useAppSelector((state) => state.auth.user?.username);
+  if (!userName) {
+    return null;
+  }
   return (
     <div className={styles.sidebarExit}>
-      <Image src="exit.svg" width={40} height={40} alt="play" />
-      <p>userName</p>
+      <p>{userName}</p>
     </div>
   );
 }

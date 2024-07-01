@@ -7,17 +7,12 @@ import { useAppSelector } from "@/hooks/store";
 import User from "../user/User";
 
 const SongsCollection = () => {
-  // useInitializeLikedTracks();
-  // const userName = useAppSelector((state) => state.auth.user?.username);
-  // if (!userName) {
-  //   return null;
-  // }
   return (
     <div className={styles.main_sidebar}>
-      {/* <div className={styles.sidebarExit}>
-        <Image src="/exit.svg" width={40} height={40} alt="play" />
-      </div> */}
-      <User />
+      <div className={styles.sidebarExit}>
+        <Image src="/exit.svg" width={40} height={40} alt="exit" />
+        <User />
+      </div>
       <div className={styles.block_sidebar}>
         <div className={styles.list_sidebar}>
           <div className={styles.item_sidebar}>

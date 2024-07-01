@@ -7,13 +7,7 @@ import { useAppDispatch } from "@/hooks/store";
 import { getTokens, getUser } from "@/store/features/authSlice";
 import { useRouter } from "next/navigation";
 
-type Props = {
-  params: {
-    email: string;
-    password: string;
-  };
-};
-export default function Signin({ params }: Props) {
+export default function Signin() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });

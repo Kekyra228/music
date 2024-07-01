@@ -14,6 +14,7 @@ type Props = {
 
 const Track = ({ track, tracks }: Props) => {
   const isPlaying = useAppSelector((state) => state.playlist.isPlaying);
+  const isLiked = useAppSelector((state) => state.playlist.isLiked);
   const dispatch = useAppDispatch();
   const { name, author, album, duration_in_seconds } = track;
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
@@ -62,8 +63,22 @@ const Track = ({ track, tracks }: Props) => {
         </div>
 
         <div className={styles.trackTime}>
-          <div className={styles.trackTimeLike}>
-            <Image src="/like.svg" width={14} height={12} alt="like" />
+          <div
+            className={styles.trackTimeLike}
+            onClick={() =>
+              dispatch(setCurrentTrack({ currentTrack: track, tracks }))
+            }
+          >
+            {isLiked ? (
+              <Image
+                src="/activeLike.svg"
+                width={14}
+                height={12}
+                alt="activelike"
+              />
+            ) : (
+              <Image src="/like.svg" width={14} height={12} alt="like" />
+            )}
           </div>
           <span className={styles.trackTimeText}>
             {formatDuration(duration_in_seconds)}

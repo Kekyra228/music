@@ -3,6 +3,7 @@ import Sorting from "@/app/components/sorting/Sorting";
 import Main from "@/app/components/main/Main";
 import styles from "../layout.module.css";
 import { TrackType } from "@/types/types";
+import { useInitializeLikedTracks } from "@/hooks/likes";
 
 export default async function MainPageSongs() {
   let tracks: TrackType[] = [];
@@ -15,6 +16,7 @@ export default async function MainPageSongs() {
   //       ? "Ошибка при загрузке треков. " + err.message
   //       : "Неизвестная ошибка";
   // }
+
   return (
     <>
       <SearchHeader />
