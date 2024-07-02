@@ -8,12 +8,13 @@ import { getTokens, getUser } from "@/store/features/authSlice";
 import { useRouter } from "next/navigation";
 
 export default function Signin() {
-  // const [showError, setShowError] = useState(null);
+  const [message, setMessage] = useState("");
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
+
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
@@ -23,15 +24,21 @@ export default function Signin() {
   }
   async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
+
     try {
       await Promise.all([
-        dispatch(getTokens(formData)).unwrap().then(()=>{}),
+        dispatch(getTokens(formData))
+          .unwrap()
+          .then(() => {}),
         dispatch(getUser(formData)).unwrap(),
       ]);
       router.push("/");
       console.log("вы вошли");
-    } catch (error) {
-      alert(error);
+    } catch (error: unknown) {
+      if (error.message === "Заполните поля") {
+        setMessage(error.message);
+      }
+      setMessage("Ошибка");
     }
   }
   return (
@@ -72,9 +79,9 @@ export default function Signin() {
             <button className={styles.btnSignUp}>
               <Link href="/signup">
                 <p className={styles.btnSignUpText}>Зарегестрироваться</p>
-                {/* {showError && <p style={{ color: "red" }}> Ошибочка...</p>} */}
               </Link>
             </button>
+            {message && <p className={styles.errorMes}>{message}</p>}
           </form>
         </div>
       </div>

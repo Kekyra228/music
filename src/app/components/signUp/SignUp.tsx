@@ -23,6 +23,7 @@ export default function SignUp() {
     password: "",
     username: "",
   });
+  const [message, setMessage] = useState(false);
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setFormData((prevFormData) => {
@@ -39,6 +40,8 @@ export default function SignUp() {
       router.push("signin");
     } catch (error) {
       console.log(error);
+      setMessage(true);
+      return;
     }
   }
   // let error: string | null = null;
@@ -95,6 +98,7 @@ export default function SignUp() {
                 <p className={styles.btnSignUpText}>Зарегестрироваться</p>
               </Link>
             </button>
+            {message && <p className={styles.errorMes}>Ошибка</p>}
           </form>
         </div>
       </div>
