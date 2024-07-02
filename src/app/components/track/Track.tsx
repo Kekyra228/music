@@ -6,6 +6,7 @@ import { formatDuration } from "@/utils/formatDuration";
 import { TrackType } from "@/types/types";
 import { useAppDispatch, useAppSelector } from "@/hooks/store";
 import { setCurrentTrack, setIsPlaying } from "@/store/features/playlistSlice";
+import { useLikeTrack } from "@/hooks/likes";
 
 type Props = {
   track: TrackType;
@@ -13,8 +14,8 @@ type Props = {
 };
 
 const Track = ({ track, tracks }: Props) => {
+  const { isLiked, handleLike } = useLikeTrack({ track });
   const isPlaying = useAppSelector((state) => state.playlist.isPlaying);
-  const isLiked = useAppSelector((state) => state.playlist.isLiked);
   const dispatch = useAppDispatch();
   const { name, author, album, duration_in_seconds } = track;
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
@@ -63,12 +64,7 @@ const Track = ({ track, tracks }: Props) => {
         </div>
 
         <div className={styles.trackTime}>
-          <div
-            className={styles.trackTimeLike}
-            onClick={() =>
-              dispatch(setCurrentTrack({ currentTrack: track, tracks }))
-            }
-          >
+          <div className={styles.trackTimeLike} onClick={handleLike}>
             {isLiked ? (
               <Image
                 src="/activeLike.svg"

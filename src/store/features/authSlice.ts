@@ -16,8 +16,8 @@ type SignUpFormTypes = {
 export const createUser = createAsyncThunk(
   "user/createUser",
   async ({ email, password, username }: SignUpFormTypes) => {
-    const newUser = await authorize({ email, password, username });
-    return newUser;
+    const user = await authorize({ email, password, username });
+    return user;
   }
 );
 
@@ -71,6 +71,7 @@ const authSlice = createSlice({
         getUser.fulfilled,
         (state, action: PayloadAction<StaredUserType>) => {
           state.user = action.payload;
+          // const user = localStorage.setItem("user", JSON.stringify(user));
         }
       )
       .addCase(
@@ -84,12 +85,6 @@ const authSlice = createSlice({
         ) => {
           state.tokens.access = action.payload.access;
           state.tokens.refresh = action.payload.refresh;
-        }
-      )
-      .addCase(
-        createUser.fulfilled,
-        (state, action: PayloadAction<StaredUserType>) => {
-          state.newUser = action.payload;
         }
       );
   },

@@ -7,9 +7,10 @@ import { useAppDispatch, useAppSelector } from "@/hooks/store";
 function User() {
   useInitializeLikedTracks();
   const userName = useAppSelector((state) => state.auth.user?.username);
-  if (!userName) {
-    return null;
-  }
+  console.log(userName);
+  // if (!userName) {
+  //   return null;
+  // }
   return (
     <div className={styles.sidebarExit}>
       <p>{userName}</p>

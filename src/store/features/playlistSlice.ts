@@ -11,7 +11,7 @@ export const getFavoriteTracks = createAsyncThunk(
 );
 export const addLikeInTrack = createAsyncThunk(
   "playlist/getFavoriteTracks",
-  async (id: string) => {
+  async (id: number) => {
     const likedTrack = await addLike(id);
     return likedTrack;
   }
@@ -19,7 +19,7 @@ export const addLikeInTrack = createAsyncThunk(
 
 export const removeLikeInTrack = createAsyncThunk(
   "playlist/getFavoriteTracks",
-  async (id: string) => {
+  async (id: number) => {
     const dislikedTrack = await removeLike(id);
     return dislikedTrack;
   }
@@ -38,8 +38,7 @@ type PlaylistStateType = {
     searchString: string;
   };
   filtredPlaylist: TrackType[];
-  isLiked: boolean;
-  likedTracks: TrackType[];
+  likedTracks: number[];
 };
 
 const initialState: PlaylistStateType = {
@@ -55,7 +54,6 @@ const initialState: PlaylistStateType = {
     searchString: "",
   },
   filtredPlaylist: [],
-  isLiked: false,
   likedTracks: [],
 };
 
@@ -156,12 +154,12 @@ const playlistSlice = createSlice({
       }
       state.filtredPlaylist = filterTracks;
     },
-    likeTrack: (state, action: PayloadAction<TrackType>) => {
-      state.likedTracks.push(action.payload);
+    likeTrack: (state, action: PayloadAction<{ id: number }>) => {
+      state.likedTracks.push(action.payload.id);
     },
-    dislike: (state, action: PayloadAction<TrackType>) => {
+    dislike: (state, action: PayloadAction<{ id: number }>) => {
       state.likedTracks = state.likedTracks.filter(
-        (el) => el.id !== action.payload.id
+        (el) => el !== action.payload.id
       );
     },
   },
@@ -169,7 +167,7 @@ const playlistSlice = createSlice({
     builder.addCase(
       getFavoriteTracks.fulfilled,
       (state, action: PayloadAction<TrackType[]>) => {
-        state.likedTracks = action.payload;
+        state.likedTracks = action.payload.map((el) => el.id);
       }
     );
     // .addCase(addLikeInTrack.fulfilled, (state) => {

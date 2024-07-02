@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./store";
 import {
   addLikeInTrack,
+  dislike,
   getFavoriteTracks,
+  likeTrack,
   removeLikeInTrack,
 } from "@/store/features/playlistSlice";
 import { TrackType } from "@/types/types";
@@ -25,16 +27,25 @@ export function useInitializeLikedTracks() {
 export const useLikeTrack = ({ track }: Props) => {
   const dispatch = useAppDispatch();
   const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
-
-  const isLiked = likedTracks.includes(track);
+  const tokens = useAppSelector((state) => state.auth.tokens);
+  const isLiked = likedTracks.includes(track.id);
 
   const handleLike = async (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
-    if (isLiked) {
-      dispatch(addLikeInTrack(track.id));
-    } else {
-      dispatch(removeLikeInTrack(track.id));
+    e.stopPropagation();
+    if (!tokens.access) {
+      return alert("Вы не зарегестрированы");
+    }
+    const likedAction = isLiked ? removeLikeInTrack : addLikeInTrack;
+
+    try {
+      await dispatch(likedAction(track.id));
+      isLiked
+        ? dispatch(dislike({ id: track.id }))
+        : dispatch(likeTrack({ id: track.id }));
+    } catch (error) {
+      console.error(error);
     }
   };
 

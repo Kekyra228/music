@@ -7,11 +7,11 @@ import { useState } from "react";
 
 type Props = {
   title: string;
-  list: string[] | number[];
+  list: string[];
   onClick: (value: string) => void;
   value: string;
   isOpen: boolean;
-  selected: string[];
+  selected: string[] | string;
 };
 
 const Filter = ({
@@ -28,13 +28,15 @@ const Filter = ({
       dispatch(setFilter({ orderSorting: item }));
       return;
     }
-    dispatch(
-      setFilter({
-        [value]: selected.includes(item)
-          ? selected.filter((el) => el !== item)
-          : [...selected, item],
-      })
-    );
+    if (selected instanceof Array) {
+      dispatch(
+        setFilter({
+          [value]: selected.includes(item)
+            ? selected.filter((el) => el !== item)
+            : [...selected, item],
+        })
+      );
+    }
     // selectFilter(item);
   };
   // const [isActive, setIsActive] = useState(false);
@@ -61,7 +63,12 @@ const Filter = ({
             <li
               key={index}
               onClick={() => toggleFiler(item)}
-              className={styles.listItem}
+              className={clsx(styles.listItem, {
+                [styles.listItemActive]:
+                  value === "release"
+                    ? selected === item
+                    : selected.includes(item),
+              })}
             >
               {item}
             </li>

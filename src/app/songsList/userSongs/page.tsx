@@ -1,28 +1,22 @@
+// "use client";
 import SearchHeader from "@/app/components/header/Header";
 import Sorting from "@/app/components/sorting/Sorting";
 import Main from "@/app/components/main/Main";
 import styles from "../layout.module.css";
 import { TrackType } from "@/types/types";
-import { useInitializeLikedTracks } from "@/hooks/likes";
+import { useAppDispatch, useAppSelector } from "@/hooks/store";
+import { useEffect } from "react";
+import { getFavoriteTracks } from "@/store/features/playlistSlice";
 
 export default async function MainPageSongs() {
-  let tracks: TrackType[] = [];
-  // let error: string | null = null;
-  // try {
-  //   tracks = await getFavoriteTracks();
-  // } catch (err: unknown) {
-  //   error =
-  //     err instanceof Error
-  //       ? "Ошибка при загрузке треков. " + err.message
-  //       : "Неизвестная ошибка";
-  // }
-
+  // useInitializeLikedTracks();
+  const likedTracks = useAppSelector((store) => store.playlist.likedTracks);
   return (
     <>
       <SearchHeader />
       <h2 className={styles.heading}>Мои треки</h2>
       <Sorting />
-      <Main tracks={tracks} />
+      <Main tracks={likedTracks} />
     </>
   );
 }

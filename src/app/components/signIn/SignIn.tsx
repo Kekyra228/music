@@ -8,6 +8,7 @@ import { getTokens, getUser } from "@/store/features/authSlice";
 import { useRouter } from "next/navigation";
 
 export default function Signin() {
+  // const [showError, setShowError] = useState(null);
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -24,12 +25,13 @@ export default function Signin() {
     e.preventDefault();
     try {
       await Promise.all([
-        dispatch(getTokens(formData)).unwrap(),
+        dispatch(getTokens(formData)).unwrap().then(()=>{}),
         dispatch(getUser(formData)).unwrap(),
       ]);
       router.push("/");
+      console.log("вы вошли");
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   }
   return (
@@ -68,8 +70,9 @@ export default function Signin() {
               <p className={styles.btnEnterText}>Войти</p>
             </button>
             <button className={styles.btnSignUp}>
-              <Link href="signup">
+              <Link href="/signup">
                 <p className={styles.btnSignUpText}>Зарегестрироваться</p>
+                {/* {showError && <p style={{ color: "red" }}> Ошибочка...</p>} */}
               </Link>
             </button>
           </form>

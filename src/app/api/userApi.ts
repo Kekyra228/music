@@ -27,7 +27,7 @@ export async function fetchFavoriteTracks(access: string) {
   return response.json();
 }
 
-export async function addLike(id: string) {
+export async function addLike(id: number) {
   const response = await fetch(
     `https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`,
     {
@@ -47,7 +47,7 @@ export async function addLike(id: string) {
   return response.json();
 }
 
-export async function removeLike(id: string) {
+export async function removeLike(id: number) {
   const response = await fetch(
     `https://skypro-music-api.skyeng.tech/catalog/track/${id}/favorite/`,
     {

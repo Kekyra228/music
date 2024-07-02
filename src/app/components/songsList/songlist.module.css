@@ -56,8 +56,12 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+  height: 500px;
   overflow-y: auto;
 }
+/* ::-webkit-scrollbar {
+  width: 10px;
+} */
 .sortingHeading {
   font-style: normal;
   font-weight: 400;

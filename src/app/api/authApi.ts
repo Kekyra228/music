@@ -18,14 +18,17 @@ export async function authorize({
         password,
         username,
       }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     }
   );
   if (response.status === 400) {
-    throw new Error("Пользователь уже существует");
+    throw new Error("Заполните поля");
   } else if (response.status === 500) {
     throw new Error("Сервер сломался");
   } else if (!response.ok) {
-    throw new Error("Заполните поля");
+    throw new Error("Пользователь уже существует");
   }
   const responseData = await response.json();
   return responseData;

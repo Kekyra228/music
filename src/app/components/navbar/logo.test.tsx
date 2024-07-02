@@ -1,3 +1,4 @@
+import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
 import Navbar from "./Navbar";
 
@@ -11,6 +12,6 @@ import Navbar from "./Navbar";
 
 test("navburger render ", () => {
   render(<Navbar />);
-  const image = screen.getAllByAltText("navburger");
+  const image = screen.getByAltText("navburger");
   expect(image).toBeInTheDocument();
 });

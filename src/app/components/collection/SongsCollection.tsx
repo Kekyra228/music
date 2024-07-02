@@ -10,7 +10,10 @@ const SongsCollection = () => {
   return (
     <div className={styles.main_sidebar}>
       <div className={styles.sidebarExit}>
-        <Image src="/exit.svg" width={40} height={40} alt="exit" />
+        <Link href="/signin">
+          <Image src="/exit.svg" width={40} height={40} alt="exit" />
+        </Link>
+
         <User />
       </div>
       <div className={styles.block_sidebar}>

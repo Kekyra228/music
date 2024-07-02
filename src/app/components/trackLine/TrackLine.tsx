@@ -9,8 +9,14 @@ import {
   setIsPlaying,
   setShuffle,
 } from "@/store/features/playlistSlice";
+import { useLikeTrack } from "@/hooks/likes";
+import { TrackType } from "@/types/types";
 
-const TrackLine = () => {
+type Props = {
+  track: TrackType;
+};
+const TrackLine = ({ track }: Props) => {
+  // const { isLiked, handleLike } = useLikeTrack({ track });
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
   const isShuffledPlaylist = useAppSelector(
     (state) => state.playlist.isShuffled
@@ -35,10 +41,12 @@ const TrackLine = () => {
     }
   }
   useEffect(() => {
-    if (!isPlaying) {
-      dispatch(setIsPlaying());
+    if (currentTrack) {
+      if (!isPlaying) {
+        dispatch(setIsPlaying());
+      }
+      audioRef.current?.play();
     }
-    audioRef.current?.play();
   }, [currentTrack]);
 
   const dispatch = useAppDispatch();
@@ -261,7 +269,16 @@ const TrackLine = () => {
 
               <div className={styles.likeDislike}>
                 <div className={styles.likeBtn}>
-                  <Image src="/like.svg" width={14} height={12} alt="next" />
+                  {/* {isLiked ? (
+                    <Image
+                      src="/activeLike.svg"
+                      width={14}
+                      height={12}
+                      alt="activelike"
+                    />
+                  ) : (
+                    <Image src="/like.svg" width={14} height={12} alt="like" />
+                  )} */}
                 </div>
                 <div className="track-play__dislike _btn-icon">
                   {/* <svg className="track-play__dislike-svg">

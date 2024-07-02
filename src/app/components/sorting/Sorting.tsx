@@ -14,8 +14,8 @@ const Sorting = () => {
   const selectedAuthor = Array.from(
     useAppSelector((store) => store.playlist.searchFilter.author)
   );
-  const selectedRelease = Array.from(
-    useAppSelector((store) => store.playlist.searchFilter.orderSorting)
+  const selectedRelease = useAppSelector(
+    (store) => store.playlist.searchFilter.orderSorting
   );
   const selectedGenre = Array.from(
     useAppSelector((store) => store.playlist.searchFilter.genre)

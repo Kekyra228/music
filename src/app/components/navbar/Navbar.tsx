@@ -35,12 +35,12 @@ const Navbar = () => {
               </Link>
             </li>
             <li className={styles.nav_item}>
-              <Link href="signin" className={styles.nav_link}>
+              <Link href="/signin" className={styles.nav_link}>
                 Войти
               </Link>
             </li>
             <li className={styles.nav_item}>
-              <Link href="signin">
+              <Link href="/signin">
                 <Image src="/exit.svg" width={40} height={40} alt="exit" />
               </Link>
             </li>

@@ -91,7 +91,7 @@ export default function SignUp() {
               onChange={handleChange}
             />
             <button className={styles.btnSignup} onClick={handleSubmit}>
-              <Link href="signin">
+              <Link href="/signin">
                 <p className={styles.btnSignUpText}>Зарегестрироваться</p>
               </Link>
             </button>
