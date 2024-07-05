@@ -18,9 +18,9 @@ export async function fetchUser({ email, password }: SigninFormTypes) {
     }
   );
   if (response.status === 400) {
-    throw new Error("Неверный пароль или логин");
-  } else if (!response.ok) {
     throw new Error("Заполните поля");
+  } else if (response.status === 401) {
+    throw new Error("Неверный пароль или логин");
   }
   const responseData = await response.json();
   return responseData;

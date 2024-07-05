@@ -150,5 +150,6 @@
   box-sizing: border-box;
   margin-top: 5px;
   color: red;
-  font-size: 18px;
+  font-size: 14px;
+  text-align: center;
 }

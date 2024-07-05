@@ -23,7 +23,7 @@ export default function SignUp() {
     password: "",
     username: "",
   });
-  const [message, setMessage] = useState(false);
+  const [message, setMessage] = useState("");
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setFormData((prevFormData) => {
@@ -38,9 +38,10 @@ export default function SignUp() {
     try {
       await Promise.all([dispatch(createUser(formData)).unwrap()]);
       router.push("signin");
-    } catch (error) {
-      console.log(error);
-      setMessage(true);
+    } catch (error: any) {
+      if (error.message === "Заполните поля корректно") {
+        setMessage("Не получилось зарегестрироваться");
+      }
       return;
     }
   }
@@ -98,7 +99,7 @@ export default function SignUp() {
                 <p className={styles.btnSignUpText}>Зарегестрироваться</p>
               </Link>
             </button>
-            {message && <p className={styles.errorMes}>Ошибка</p>}
+            {message && <p className={styles.errorMes}>{message}</p>}
           </form>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./store";
 import {
@@ -15,7 +16,16 @@ type Props = {
 
 export function useInitializeLikedTracks() {
   const dispatch = useAppDispatch();
+  const tokens = useAppSelector((state) => state.auth.tokens);
+  useEffect(() => {
+    if (tokens.access) {
+      dispatch(getFavoriteTracks());
+    }
+  }, [tokens, dispatch]);
+}
 
+export function useLikedTracks() {
+  const dispatch = useAppDispatch();
   const tokens = useAppSelector((state) => state.auth.tokens);
   useEffect(() => {
     if (tokens.access) {
@@ -28,24 +38,24 @@ export const useLikeTrack = ({ track }: Props) => {
   const dispatch = useAppDispatch();
   const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
   const tokens = useAppSelector((state) => state.auth.tokens);
-  const isLiked = likedTracks.includes(track.id);
+  const isLiked = likedTracks.includes(track?.id);
 
   const handleLike = async (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     e.stopPropagation();
     if (!tokens.access) {
-      return alert("Вы не зарегестрированы");
+      return toast.error("Вы не зарегестрированы");
     }
     const likedAction = isLiked ? removeLikeInTrack : addLikeInTrack;
 
     try {
-      await dispatch(likedAction(track.id));
+      await likedAction(track.id);
       isLiked
         ? dispatch(dislike({ id: track.id }))
         : dispatch(likeTrack({ id: track.id }));
     } catch (error) {
-      console.error(error);
+      return toast.error("Ошибка");
     }
   };
 

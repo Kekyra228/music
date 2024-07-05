@@ -170,9 +170,6 @@ const playlistSlice = createSlice({
         state.likedTracks = action.payload.map((el) => el.id);
       }
     );
-    // .addCase(addLikeInTrack.fulfilled, (state) => {
-    //   state.isLiked = !state.isLiked;
-    // });
   },
 });
 

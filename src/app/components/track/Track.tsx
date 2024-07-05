@@ -1,6 +1,7 @@
 "use client";
+
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./track.module.css";
 import { formatDuration } from "@/utils/formatDuration";
 import { TrackType } from "@/types/types";
@@ -21,8 +22,18 @@ const Track = ({ track, tracks }: Props) => {
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
   const isCurrentTrack = currentTrack?.id === track.id;
 
-  const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
+  // const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
 
+  function playSong() {
+    if (currentTrack) {
+      if (isPlaying) {
+        !currentTrack;
+      } else {
+        isPlaying;
+      }
+      dispatch(setIsPlaying());
+    }
+  }
   return (
     <div
       onClick={() => dispatch(setCurrentTrack({ currentTrack: track, tracks }))}

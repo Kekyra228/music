@@ -1,3 +1,4 @@
+import { TrackType } from "@/types/types";
 import SongsCollection from "../components/collection/SongsCollection";
 import Navbar from "../components/navbar/Navbar";
 import TrackLine from "../components/trackLine/TrackLine";

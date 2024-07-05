@@ -24,11 +24,11 @@ export async function authorize({
     }
   );
   if (response.status === 400) {
-    throw new Error("Заполните поля");
+    throw new Error("Заполните поля корректно");
   } else if (response.status === 500) {
     throw new Error("Сервер сломался");
   } else if (!response.ok) {
-    throw new Error("Пользователь уже существует");
+    throw new Error("Что то пошло не так");
   }
   const responseData = await response.json();
   return responseData;

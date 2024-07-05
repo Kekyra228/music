@@ -34,11 +34,12 @@ export default function Signin() {
       ]);
       router.push("/");
       console.log("вы вошли");
-    } catch (error: unknown) {
-      if (error.message === "Заполните поля") {
+    } catch (error: any) {
+      if (error.message === "Неверный пароль или логин") {
+        setMessage(error.message);
+      } else if (error.message === "Заполните поля") {
         setMessage(error.message);
       }
-      setMessage("Ошибка");
     }
   }
   return (

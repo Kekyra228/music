@@ -21,6 +21,7 @@ const Navbar = () => {
           height={10}
           alt="navburger"
           onClick={openNavBar}
+          fetchPriority="low"
         />
         {isOpenBar && (
           <ul className="menu__list">

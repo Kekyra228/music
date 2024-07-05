@@ -37,12 +37,8 @@ const Filter = ({
         })
       );
     }
-    // selectFilter(item);
   };
-  // const [isActive, setIsActive] = useState(false);
-  // const selectFilter = (item: string) => {
-  //   setIsActive((isActive) => !isActive);
-  // };
+
   return (
     <div>
       <button
@@ -58,7 +54,6 @@ const Filter = ({
       </button>
       {isOpen && (
         <ul className={styles.list}>
-          {/* {isActive && ()} */}
           {list.map((item, index) => (
             <li
               key={index}

@@ -11,18 +11,17 @@ import {
 } from "@/store/features/playlistSlice";
 import { useLikeTrack } from "@/hooks/likes";
 import { TrackType } from "@/types/types";
-
 type Props = {
   track: TrackType;
 };
 const TrackLine = ({ track }: Props) => {
-  // const { isLiked, handleLike } = useLikeTrack({ track });
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
+  const { isLiked, handleLike } = useLikeTrack({ track });
+
   const isShuffledPlaylist = useAppSelector(
     (state) => state.playlist.isShuffled
   );
   const isPlaying = useAppSelector((state) => state.playlist.isPlaying);
-  // const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [currentTimeSong, setCurrentTimeSong] = useState<number>(0);
   const audioRef = useRef<null | HTMLAudioElement>(null);
   const sliderClick = useRef<null | HTMLDivElement>(null);
@@ -268,8 +267,8 @@ const TrackLine = ({ track }: Props) => {
               </div>
 
               <div className={styles.likeDislike}>
-                <div className={styles.likeBtn}>
-                  {/* {isLiked ? (
+                <div className={styles.likeBtn} onClick={handleLike}>
+                  {isLiked ? (
                     <Image
                       src="/activeLike.svg"
                       width={14}
@@ -278,7 +277,7 @@ const TrackLine = ({ track }: Props) => {
                     />
                   ) : (
                     <Image src="/like.svg" width={14} height={12} alt="like" />
-                  )} */}
+                  )}
                 </div>
                 <div className="track-play__dislike _btn-icon">
                   {/* <svg className="track-play__dislike-svg">

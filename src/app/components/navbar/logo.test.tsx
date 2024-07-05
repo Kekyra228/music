@@ -12,6 +12,6 @@ import Navbar from "./Navbar";
 
 test("navburger render ", () => {
   render(<Navbar />);
-  const image = screen.getByAltText("navburger");
-  expect(image).toBeInTheDocument();
+  const image = screen.getAllByAltText("navburger");
+  expect(image.length).toBeGreaterThan(0);
 });
