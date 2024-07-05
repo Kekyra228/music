@@ -7,32 +7,41 @@ import {
   getFavoriteTracks,
   likeTrack,
   removeLikeInTrack,
+  setLikedTracks,
 } from "@/store/features/playlistSlice";
 import { TrackType } from "@/types/types";
+import { fetchFavoriteTracks } from "@/app/api/userApi";
 
 type Props = {
   track: TrackType;
 };
 
 export function useInitializeLikedTracks() {
+  const token = useAppSelector((state) => state.auth.tokens?.access);
   const dispatch = useAppDispatch();
-  const tokens = useAppSelector((state) => state.auth.tokens);
+
   useEffect(() => {
-    if (tokens.access) {
-      dispatch(getFavoriteTracks());
+    if (token) {
+      fetchFavoriteTracks(token)
+        .then((data) => {
+          dispatch(setLikedTracks(data.map((track: TrackType) => track.id)));
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
     }
-  }, [tokens, dispatch]);
+  }, [dispatch, token]);
 }
 
-export function useLikedTracks() {
-  const dispatch = useAppDispatch();
-  const tokens = useAppSelector((state) => state.auth.tokens);
-  useEffect(() => {
-    if (tokens.access) {
-      dispatch(getFavoriteTracks(tokens.access));
-    }
-  }, [tokens, dispatch]);
-}
+// export function useLikedTracks() {
+//   const dispatch = useAppDispatch();
+//   const tokens = useAppSelector((state) => state.auth.tokens);
+//   useEffect(() => {
+//     if (tokens.access) {
+//       dispatch(getFavoriteTracks(tokens.access));
+//     }
+//   }, [tokens, dispatch]);
+// }
 
 export const useLikeTrack = ({ track }: Props) => {
   const dispatch = useAppDispatch();

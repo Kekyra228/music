@@ -8,9 +8,10 @@ import { useState } from "react";
 
 type Props = {
   tracks: TrackType[];
+  isFavorite?: boolean;
 };
 
-const SongList = ({ tracks }: Props) => {
+const SongList = ({ tracks, isFavorite }: Props) => {
   const [isLoading, setIsLoading] = useState(true);
   return (
     <div className={styles.centerblock__content_playlist}>
@@ -27,7 +28,12 @@ const SongList = ({ tracks }: Props) => {
         {tracks.length === 0 ? "Треков не найдено" : ""}
         {isLoading}
         {tracks.map((value) => (
-          <Track key={value.id} track={value} tracks={tracks} />
+          <Track
+            key={value.id}
+            track={value}
+            tracks={tracks}
+            isFavorite={isFavorite}
+          />
         ))}
       </div>
     </div>

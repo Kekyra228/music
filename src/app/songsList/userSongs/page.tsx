@@ -5,44 +5,42 @@ import Main from "@/app/components/main/Main";
 import styles from "../layout.module.css";
 import { TrackType } from "@/types/types";
 import { useAppDispatch, useAppSelector } from "@/hooks/store";
-import { getFavoriteTracks } from "@/store/features/playlistSlice";
-import { useEffect } from "react";
-import { useInitializeLikedTracks, useLikedTracks } from "@/hooks/likes";
+import { useEffect, useState } from "react";
 import TrackLine from "@/app/components/trackLine/TrackLine";
-type Props = {
-  track: TrackType;
-};
+import { useRouter } from "next/navigation";
+import { fetchFavoriteTracks } from "@/app/api/userApi";
+import { getUser } from "@/store/features/authSlice";
+import { toast } from "react-toastify";
+
 export default function MainPageSongs() {
-  //   let favoriteTracks: TrackType[] = [];
-  // const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
-  // useEffect(() => {
-  //   dispatch(getFavoriteTracks(tokens));
-  // }, [tracks, dispatch, tokens]);
+  const token = useAppSelector((state) => state.auth.tokens?.access);
+  const [favoriteTracks, setFavoriteTracks] = useState<TrackType[]>([]);
+  const router = useRouter();
+  const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   dispatch(setPlaylist({ tracks }));
-  // }, [tracks, dispatch]);
+  useEffect(() => {
+    fetchFavoriteTracks(token)
+      .then((data) => {
+        setFavoriteTracks(data);
+      })
+      .catch((error) => {
+        if (error.message === "401") {
+          toast.error("Вам необходимо авторизоваться!");
+          router.push("/signin");
+          return;
+        } else {
+          toast.error(error.message);
+          return;
+        }
+      });
+  }, [dispatch, router, token]);
 
-  // const filtredTracks = useAppSelector(
-  //   (store) => store.playlist.filtredPlaylist
-  // );
-  //   useInitializeLikedTracks();
-
-  let favoriteTracks: TrackType[] = [];
-
-  const tokens = useAppSelector((state) => state.auth.tokens);
-  try {
-    let favoriteTracks = getFavoriteTracks(tokens.access);
-  } catch (err) {
-    return alert("error");
-  }
   return (
     <>
       <SearchHeader />
       <h2 className={styles.heading}>Мои треки</h2>
       <Sorting />
-      <Main tracks={favoriteTracks} />
-      {/* <TrackLine track={favoriteTracks} /> */}
+      <Main tracks={favoriteTracks} isFavorite={true} />
     </>
   );
 }

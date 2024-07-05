@@ -101,6 +101,9 @@ const playlistSlice = createSlice({
       state.tracks = action.payload.tracks;
       state.filtredPlaylist = action.payload.tracks;
     },
+    setLikedTracks: (state, action: PayloadAction<number[]>) => {
+      state.likedTracks = action.payload;
+    },
     setFilter: (
       state,
       action: PayloadAction<{
@@ -163,14 +166,6 @@ const playlistSlice = createSlice({
       );
     },
   },
-  extraReducers(builder) {
-    builder.addCase(
-      getFavoriteTracks.fulfilled,
-      (state, action: PayloadAction<TrackType[]>) => {
-        state.likedTracks = action.payload.map((el) => el.id);
-      }
-    );
-  },
 });
 
 export const {
@@ -183,5 +178,6 @@ export const {
   setPlaylist,
   likeTrack,
   dislike,
+  setLikedTracks,
 } = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;
