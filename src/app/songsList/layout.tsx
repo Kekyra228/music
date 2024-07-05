@@ -4,6 +4,9 @@ import Navbar from "../components/navbar/Navbar";
 import TrackLine from "../components/trackLine/TrackLine";
 import styles from "./layout.module.css";
 
+type Props = {
+  track: TrackType;
+};
 export default function SongsLayout({
   children,
 }: Readonly<{

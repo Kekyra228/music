@@ -1,13 +1,17 @@
+"use client";
 import Image from "next/image";
 import styles from "./songlist.module.css";
 import { TrackType } from "@/types/types";
 import Track from "../track/Track";
+import { useAppSelector } from "@/hooks/store";
+import { useState } from "react";
 
 type Props = {
   tracks: TrackType[];
 };
 
 const SongList = ({ tracks }: Props) => {
+  const [isLoading, setIsLoading] = useState(true);
   return (
     <div className={styles.centerblock__content_playlist}>
       <div className={styles.content_playlist_title}>
@@ -21,6 +25,7 @@ const SongList = ({ tracks }: Props) => {
 
       <div className={styles.list_wrapper}>
         {tracks.length === 0 ? "Треков не найдено" : ""}
+        {isLoading}
         {tracks.map((value) => (
           <Track key={value.id} track={value} tracks={tracks} />
         ))}

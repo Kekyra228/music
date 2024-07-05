@@ -8,7 +8,10 @@ import { useAppDispatch, useAppSelector } from "@/hooks/store";
 import { getFavoriteTracks } from "@/store/features/playlistSlice";
 import { useEffect } from "react";
 import { useInitializeLikedTracks, useLikedTracks } from "@/hooks/likes";
-
+import TrackLine from "@/app/components/trackLine/TrackLine";
+type Props = {
+  track: TrackType;
+};
 export default function MainPageSongs() {
   //   let favoriteTracks: TrackType[] = [];
   // const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
@@ -39,6 +42,7 @@ export default function MainPageSongs() {
       <h2 className={styles.heading}>Мои треки</h2>
       <Sorting />
       <Main tracks={favoriteTracks} />
+      {/* <TrackLine track={favoriteTracks} /> */}
     </>
   );
 }
