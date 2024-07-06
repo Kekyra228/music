@@ -38,7 +38,7 @@ type PlaylistStateType = {
     searchString: string;
   };
   filtredPlaylist: TrackType[];
-  likedTracks: number[];
+  likedTracks: TrackType[];
 };
 
 const initialState: PlaylistStateType = {
@@ -101,9 +101,9 @@ const playlistSlice = createSlice({
       state.tracks = action.payload.tracks;
       state.filtredPlaylist = action.payload.tracks;
     },
-    setLikedTracks: (state, action: PayloadAction<number[]>) => {
-      state.likedTracks = action.payload;
-    },
+    // setLikedTrack: (state, action: PayloadAction<TrackType>) => {
+    //   state.likedTracks.push(action.payload);
+    // },
     setFilter: (
       state,
       action: PayloadAction<{
@@ -157,14 +157,22 @@ const playlistSlice = createSlice({
       }
       state.filtredPlaylist = filterTracks;
     },
-    likeTrack: (state, action: PayloadAction<{ id: number }>) => {
-      state.likedTracks.push(action.payload.id);
+    likeTrack: (state, action: PayloadAction<TrackType>) => {
+      state.likedTracks.push(action.payload);
     },
-    dislike: (state, action: PayloadAction<{ id: number }>) => {
+    dislike: (state, action: PayloadAction<TrackType>) => {
       state.likedTracks = state.likedTracks.filter(
-        (el) => el !== action.payload.id
+        (el) => el.id !== action.payload.id
       );
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(
+      getFavoriteTracks.fulfilled,
+      (state, action: PayloadAction<TrackType[]>) => {
+        state.likedTracks = action.payload;
+      }
+    );
   },
 });
 

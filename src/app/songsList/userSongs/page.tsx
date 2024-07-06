@@ -13,34 +13,37 @@ import { getUser } from "@/store/features/authSlice";
 import { toast } from "react-toastify";
 
 export default function MainPageSongs() {
-  const token = useAppSelector((state) => state.auth.tokens?.access);
-  const [favoriteTracks, setFavoriteTracks] = useState<TrackType[]>([]);
-  const router = useRouter();
-  const dispatch = useAppDispatch();
+  const favTracks: TrackType[] = useAppSelector(
+    (state) => state.playlist.likedTracks
+  );
+  // const token = useAppSelector((state) => state.auth.tokens?.access);
+  // const [favoriteTracks, setFavoriteTracks] = useState<TrackType[]>([]);
+  // const router = useRouter();
+  // const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    fetchFavoriteTracks(token)
-      .then((data) => {
-        setFavoriteTracks(data);
-      })
-      .catch((error) => {
-        if (error.message === "401") {
-          toast.error("Вам необходимо авторизоваться!");
-          router.push("/signin");
-          return;
-        } else {
-          toast.error(error.message);
-          return;
-        }
-      });
-  }, [dispatch, router, token]);
+  // useEffect(() => {
+  //   fetchFavoriteTracks(token)
+  //     .then((data) => {
+  //       setFavoriteTracks(data);
+  //     })
+  //     .catch((error) => {
+  //       if (error.message === "401") {
+  //         toast.error("Вам необходимо авторизоваться!");
+  //         router.push("/signin");
+  //         return;
+  //       } else {
+  //         toast.error(error.message);
+  //         return;
+  //       }
+  //     });
+  // }, [dispatch, router, token]);
 
   return (
     <>
       <SearchHeader />
       <h2 className={styles.heading}>Мои треки</h2>
       <Sorting />
-      <Main tracks={favoriteTracks} isFavorite={true} />
+      <Main tracks={favTracks} isFavorite={true} />
     </>
   );
 }

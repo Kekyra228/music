@@ -43,30 +43,51 @@ export function useInitializeLikedTracks() {
 //   }, [tokens, dispatch]);
 // }
 
-export const useLikeTrack = ({ track }: Props) => {
+// export const useLikeTrack = ({ track }: Props) => {
+//   const dispatch = useAppDispatch();
+//   const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
+//   const tokens = useAppSelector((state) => state.auth.tokens?.access);
+//   // const isLiked = likedTracks.includes(track.id);
+//   const isLiked = likedTracks.filter((el) => el.id === track.id);
+
+//   const handleLike = async (
+//     e: React.MouseEvent<HTMLDivElement, MouseEvent>
+//   ) => {
+//     e.stopPropagation();
+//     if (!tokens) {
+//       return toast.error("Вы не зарегестрированы");
+//     }
+//     const likedAction = isLiked ? removeLikeInTrack : addLikeInTrack;
+
+//     try {
+//       await dispatch(likedAction(track.id));
+//       isLiked ? dispatch(dislike(track)) : dispatch(likeTrack(track));
+//     } catch (error) {
+//       return toast.error("Ошибка");
+//     }
+//   };
+
+//   return { isLiked, handleLike };
+// };
+
+export const useLikeTrack = (track: TrackType) => {
   const dispatch = useAppDispatch();
-  const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
   const tokens = useAppSelector((state) => state.auth.tokens);
-  const isLiked = likedTracks.includes(track?.id);
+  const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
+  // Логика проверки наличия трека в списке лайкнутых
+  const isLiked = likedTracks.some((el) => el.id === track.id);
 
-  const handleLike = async (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+  const handleLike = async (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     e.stopPropagation();
-    if (!tokens.access) {
-      return toast.error("Вы не зарегестрированы");
-    }
-    const likedAction = isLiked ? removeLikeInTrack : addLikeInTrack;
-
-    try {
-      await likedAction(track.id);
-      isLiked
-        ? dispatch(dislike({ id: track.id }))
-        : dispatch(likeTrack({ id: track.id }));
-    } catch (error) {
-      return toast.error("Ошибка");
+    if (tokens.access) {
+      if (isLiked) {
+        await removeLikeInTrack(track.id);
+        dispatch(dislike(track));
+      } else {
+        await addLikeInTrack(track.id);
+        dispatch(likeTrack(track));
+      }
     }
   };
-
   return { isLiked, handleLike };
 };
