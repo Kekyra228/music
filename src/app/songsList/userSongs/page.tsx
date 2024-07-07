@@ -11,33 +11,18 @@ import { useRouter } from "next/navigation";
 import { fetchFavoriteTracks } from "@/app/api/userApi";
 import { getUser } from "@/store/features/authSlice";
 import { toast } from "react-toastify";
+import { access } from "fs";
+import { getFavoriteTracks } from "@/store/features/playlistSlice";
 
 export default function MainPageSongs() {
+  const dispatch = useAppDispatch();
+  const token = useAppSelector((state) => state.auth.tokens?.access);
   const favTracks: TrackType[] = useAppSelector(
     (state) => state.playlist.likedTracks
   );
-  // const token = useAppSelector((state) => state.auth.tokens?.access);
-  // const [favoriteTracks, setFavoriteTracks] = useState<TrackType[]>([]);
-  // const router = useRouter();
-  // const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   fetchFavoriteTracks(token)
-  //     .then((data) => {
-  //       setFavoriteTracks(data);
-  //     })
-  //     .catch((error) => {
-  //       if (error.message === "401") {
-  //         toast.error("Вам необходимо авторизоваться!");
-  //         router.push("/signin");
-  //         return;
-  //       } else {
-  //         toast.error(error.message);
-  //         return;
-  //       }
-  //     });
-  // }, [dispatch, router, token]);
-
+  useEffect(() => {
+    dispatch(getFavoriteTracks(token));
+  }, [dispatch, token]);
   return (
     <>
       <SearchHeader />

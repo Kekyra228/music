@@ -186,6 +186,5 @@ export const {
   setPlaylist,
   likeTrack,
   dislike,
-  setLikedTracks,
 } = playlistSlice.actions;
 export const playlistReducer = playlistSlice.reducer;

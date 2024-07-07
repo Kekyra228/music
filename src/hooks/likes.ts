@@ -70,23 +70,27 @@ export function useInitializeLikedTracks() {
 //   return { isLiked, handleLike };
 // };
 
-export const useLikeTrack = (track: TrackType) => {
+export const useLikeTrack = ({ track }: Props) => {
   const dispatch = useAppDispatch();
   const tokens = useAppSelector((state) => state.auth.tokens);
   const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
   // Логика проверки наличия трека в списке лайкнутых
   const isLiked = likedTracks.some((el) => el.id === track.id);
 
-  const handleLike = async (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+  const handleLike = async (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     e.stopPropagation();
     if (tokens.access) {
       if (isLiked) {
-        await removeLikeInTrack(track.id);
+        await dispatch(removeLikeInTrack(track.id));
         dispatch(dislike(track));
       } else {
-        await addLikeInTrack(track.id);
+        await dispatch(addLikeInTrack(track.id));
         dispatch(likeTrack(track));
       }
+    } else {
+      return toast.error("Вы не зарегестрированы");
     }
   };
   return { isLiked, handleLike };
