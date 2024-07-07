@@ -7,7 +7,6 @@ import {
   getFavoriteTracks,
   likeTrack,
   removeLikeInTrack,
-  setLikedTracks,
 } from "@/store/features/playlistSlice";
 import { TrackType } from "@/types/types";
 import { fetchFavoriteTracks } from "@/app/api/userApi";
@@ -16,22 +15,22 @@ type Props = {
   track: TrackType;
 };
 
-export function useInitializeLikedTracks() {
-  const token = useAppSelector((state) => state.auth.tokens?.access);
-  const dispatch = useAppDispatch();
+// export function useInitializeLikedTracks() {
+//   const token = useAppSelector((state) => state.auth.tokens?.access);
+//   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (token) {
-      fetchFavoriteTracks(token)
-        .then((data) => {
-          dispatch(setLikedTracks(data.map((track: TrackType) => track.id)));
-        })
-        .catch((error) => {
-          toast.error(error);
-        });
-    }
-  }, [dispatch, token]);
-}
+//   useEffect(() => {
+//     if (token) {
+//       fetchFavoriteTracks(token)
+//         .then((data) => {
+//           dispatch(setLikedTracks(data.map((track: TrackType) => track.id)));
+//         })
+//         .catch((error) => {
+//           toast.error(error);
+//         });
+//     }
+//   }, [dispatch, token]);
+// }
 
 // export function useLikedTracks() {
 //   const dispatch = useAppDispatch();
@@ -74,8 +73,8 @@ export const useLikeTrack = ({ track }: Props) => {
   const dispatch = useAppDispatch();
   const tokens = useAppSelector((state) => state.auth.tokens);
   const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
-  // Логика проверки наличия трека в списке лайкнутых
   const isLiked = likedTracks.some((el) => el.id === track.id);
+  // const isLiked = likedTracks.includes(track.id);
 
   const handleLike = async (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -83,10 +82,12 @@ export const useLikeTrack = ({ track }: Props) => {
     e.stopPropagation();
     if (tokens.access) {
       if (isLiked) {
-        await dispatch(removeLikeInTrack(track.id));
+        await dispatch(
+          removeLikeInTrack({ access: tokens.access, id: track.id })
+        );
         dispatch(dislike(track));
       } else {
-        await dispatch(addLikeInTrack(track.id));
+        await dispatch(addLikeInTrack({ access: tokens.access, id: track.id }));
         dispatch(likeTrack(track));
       }
     } else {

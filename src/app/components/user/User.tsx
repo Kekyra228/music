@@ -10,7 +10,7 @@ function User() {
   function navToExit() {
     router.push("/signin");
   }
-  useInitializeLikedTracks();
+  // useInitializeLikedTracks();
   const userName = useAppSelector((state) => state.auth.user?.username);
   console.log(userName);
   // if (!userName) {

@@ -2,6 +2,11 @@ import { fetchFavoriteTracks, addLike, removeLike } from "@/app/api/userApi";
 import { TrackType } from "@/types/types";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+type LikesType = {
+  access: string;
+  id: number;
+};
+
 export const getFavoriteTracks = createAsyncThunk(
   "playlist/getFavoriteTracks",
   async (access: string) => {
@@ -11,16 +16,16 @@ export const getFavoriteTracks = createAsyncThunk(
 );
 export const addLikeInTrack = createAsyncThunk(
   "playlist/getFavoriteTracks",
-  async (id: number) => {
-    const likedTrack = await addLike(id);
+  async ({ access, id }: LikesType) => {
+    const likedTrack = await addLike({ access, id });
     return likedTrack;
   }
 );
 
 export const removeLikeInTrack = createAsyncThunk(
   "playlist/getFavoriteTracks",
-  async (id: number) => {
-    const dislikedTrack = await removeLike(id);
+  async ({ access, id }: LikesType) => {
+    const dislikedTrack = await removeLike({ access, id });
     return dislikedTrack;
   }
 );

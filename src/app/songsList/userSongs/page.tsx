@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from "@/hooks/store";
 import { useEffect, useState } from "react";
 import TrackLine from "@/app/components/trackLine/TrackLine";
 import { useRouter } from "next/navigation";
-import { fetchFavoriteTracks } from "@/app/api/userApi";
 import { getUser } from "@/store/features/authSlice";
 import { toast } from "react-toastify";
 import { access } from "fs";
@@ -20,9 +19,15 @@ export default function MainPageSongs() {
   const favTracks: TrackType[] = useAppSelector(
     (state) => state.playlist.likedTracks
   );
+  console.log(favTracks);
   useEffect(() => {
-    dispatch(getFavoriteTracks(token));
-  }, [dispatch, token]);
+    if (token) {
+      if (favTracks) {
+        dispatch(getFavoriteTracks(token));
+      }
+    }
+  }, [token, dispatch]);
+
   return (
     <>
       <SearchHeader />
