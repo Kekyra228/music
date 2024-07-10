@@ -1,4 +1,9 @@
-import { fetchFavoriteTracks, addLike, removeLike } from "@/app/api/userApi";
+import {
+  fetchFavoriteTracks,
+  addLike,
+  removeLike,
+  getTracks,
+} from "@/app/api/userApi";
 import { TrackType } from "@/types/types";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -6,7 +11,14 @@ type LikesType = {
   access: string;
   id: number;
 };
-
+export const getAllTracks = createAsyncThunk("playlist/getTracks", async () => {
+  try {
+    const allTracks = await getTracks();
+    return allTracks;
+  } catch (error) {
+    return null;
+  }
+});
 export const getFavoriteTracks = createAsyncThunk(
   "playlist/getFavoriteTracks",
   async (access: string) => {
@@ -14,7 +26,6 @@ export const getFavoriteTracks = createAsyncThunk(
       const favoriteTracks = await fetchFavoriteTracks(access);
       return favoriteTracks;
     } catch (error) {
-      console.log("зашел");
       return null;
     }
   }
@@ -110,6 +121,7 @@ const playlistSlice = createSlice({
     setPlaylist: (state, action: PayloadAction<{ tracks: TrackType[] }>) => {
       state.tracks = action.payload.tracks;
       state.filtredPlaylist = action.payload.tracks;
+      state.likedTracks = action.payload.tracks;
     },
     // setLikedTrack: (state, action: PayloadAction<TrackType>) => {
     //   state.likedTracks.push(action.payload);
@@ -177,16 +189,27 @@ const playlistSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(
-      getFavoriteTracks.fulfilled,
-      (state, action: PayloadAction<TrackType[]>) => {
-        if (!action.payload) {
-          return;
+    builder
+      .addCase(
+        getFavoriteTracks.fulfilled,
+        (state, action: PayloadAction<TrackType[]>) => {
+          if (!action.payload) {
+            return;
+          }
+          state.likedTracks = action.payload;
+          console.log(action.payload);
         }
-        state.likedTracks = action.payload;
-        console.log(action.payload);
-      }
-    );
+      )
+      .addCase(
+        getAllTracks.fulfilled,
+        (state, action: PayloadAction<TrackType[]>) => {
+          if (!action.payload) {
+            return;
+          }
+          state.tracks = action.payload;
+          console.log(action.payload);
+        }
+      );
   },
 });
 

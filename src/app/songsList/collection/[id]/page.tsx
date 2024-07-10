@@ -2,12 +2,9 @@
 import { getCollections } from "@/app/api/collectionsApi";
 import { TrackType } from "@/types/types";
 import SongList from "@/app/components/songsList/SongsList";
-import SongsCollection from "@/app/components/collection/SongsCollection";
 import SearchHeader from "@/app/components/header/Header";
 import styles from "./homeCollection.module.css";
 import Sorting from "@/app/components/sorting/Sorting";
-import { useAppDispatch, useAppSelector } from "@/hooks/store";
-import { setPlaylist } from "@/store/features/playlistSlice";
 
 type Props = {
   params: {

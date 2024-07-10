@@ -1,9 +1,7 @@
-"use client";
 import Image from "next/image";
 import styles from "./songscollection.module.css";
 import Link from "next/link";
 
-import { useAppSelector } from "@/hooks/store";
 import User from "../user/User";
 
 const SongsCollection = () => {
