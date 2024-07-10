@@ -9,7 +9,7 @@ import {
   removeLikeInTrack,
 } from "@/store/features/playlistSlice";
 import { TrackType } from "@/types/types";
-import { fetchFavoriteTracks } from "@/app/api/userApi";
+import { addLike, fetchFavoriteTracks, removeLike } from "@/app/api/userApi";
 
 type Props = {
   track: TrackType;
@@ -74,13 +74,13 @@ export const useLikeTrack = ({ track }: Props) => {
   const tokens = useAppSelector((state) => state.auth.tokens);
   const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
   const isLiked = likedTracks.some((el) => el.id === track.id);
-  // const isLiked = likedTracks.includes(track.id);
-
+  // const isLiked = likedTracks.includes({track:track.id});
+  // const isLiked = likedTracks.filter((el) => el.id === track.id);
   const handleLike = async (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     e.stopPropagation();
-    if (tokens.access) {
+    if (tokens.access && likedTracks) {
       if (isLiked) {
         await dispatch(
           removeLikeInTrack({ access: tokens.access, id: track.id })
@@ -96,3 +96,29 @@ export const useLikeTrack = ({ track }: Props) => {
   };
   return { isLiked, handleLike };
 };
+
+// export const useLikeTrack = (track: TrackType) => {
+//   const dispatch = useAppDispatch();
+//   const tokens = useAppSelector((state) => state.auth.tokens);
+//   const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
+
+//   const isLiked = likedTracks.some((el) => el.id === track.id);
+//   const handleLike = async (
+//     e: React.MouseEvent<HTMLDivElement, MouseEvent>
+//   ) => {
+//     e.stopPropagation();
+
+//     if (tokens.access) {
+//       if (isLiked) {
+//         await removeLike({ access: tokens.access, id: track.id });
+//         dispatch(dislike(track));
+//       } else {
+//         await addLike({ access: tokens.access, id: track.id });
+//         dispatch(likeTrack(track));
+//       }
+//     } else {
+//       return toast.error("Вы не зарегестрированы");
+//     }
+//   };
+//   return { isLiked, handleLike };
+// };

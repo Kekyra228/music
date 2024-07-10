@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./songscollection.module.css";
 import Link from "next/link";
-// import { useInitializeLikedTracks } from "@/hooks/likes";
+
 import { useAppSelector } from "@/hooks/store";
 import User from "../user/User";
 
@@ -52,24 +52,3 @@ const SongsCollection = () => {
 };
 
 export default SongsCollection;
-
-// export default function User() {
-//   useInitializeLikedTracks();
-
-//   const userName = useAppSelector((state) => state.user.user?.username);
-
-//   if (!userName) {
-//     return null;
-//   }
-
-//   return (
-//     <div className={styles.sidebarPersonal}>
-//       <p className={styles.sidebarPersonalName}>{userName}</p>
-//       <Icon
-//         name="logout"
-//         wrapperClass={styles.sidebarIcon}
-//         iconClass={styles.sidebarIconSvg}
-//       />
-//     </div>
-//   );
-// }

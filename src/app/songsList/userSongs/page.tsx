@@ -5,12 +5,7 @@ import Main from "@/app/components/main/Main";
 import styles from "../layout.module.css";
 import { TrackType } from "@/types/types";
 import { useAppDispatch, useAppSelector } from "@/hooks/store";
-import { useEffect, useState } from "react";
-import TrackLine from "@/app/components/trackLine/TrackLine";
-import { useRouter } from "next/navigation";
-import { getUser } from "@/store/features/authSlice";
-import { toast } from "react-toastify";
-import { access } from "fs";
+import { useEffect } from "react";
 import { getFavoriteTracks } from "@/store/features/playlistSlice";
 
 export default function MainPageSongs() {

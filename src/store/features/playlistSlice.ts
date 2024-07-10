@@ -10,12 +10,17 @@ type LikesType = {
 export const getFavoriteTracks = createAsyncThunk(
   "playlist/getFavoriteTracks",
   async (access: string) => {
-    const favoriteTracks = await fetchFavoriteTracks(access);
-    return favoriteTracks;
+    try {
+      const favoriteTracks = await fetchFavoriteTracks(access);
+      return favoriteTracks;
+    } catch (error) {
+      console.log("зашел");
+      return null;
+    }
   }
 );
 export const addLikeInTrack = createAsyncThunk(
-  "playlist/getFavoriteTracks",
+  "playlist/addFavoriteTracks",
   async ({ access, id }: LikesType) => {
     const likedTrack = await addLike({ access, id });
     return likedTrack;
@@ -23,7 +28,7 @@ export const addLikeInTrack = createAsyncThunk(
 );
 
 export const removeLikeInTrack = createAsyncThunk(
-  "playlist/getFavoriteTracks",
+  "playlist/removeFavoriteTracks",
   async ({ access, id }: LikesType) => {
     const dislikedTrack = await removeLike({ access, id });
     return dislikedTrack;
@@ -175,7 +180,11 @@ const playlistSlice = createSlice({
     builder.addCase(
       getFavoriteTracks.fulfilled,
       (state, action: PayloadAction<TrackType[]>) => {
+        if (!action.payload) {
+          return;
+        }
         state.likedTracks = action.payload;
+        console.log(action.payload);
       }
     );
   },
