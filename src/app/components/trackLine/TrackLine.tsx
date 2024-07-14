@@ -9,9 +9,8 @@ import {
   setIsPlaying,
   setShuffle,
 } from "@/store/features/playlistSlice";
-import { useLikeTrack } from "@/hooks/likes";
-import { TrackType } from "@/types/types";
 import PlayerLike from "./Player";
+import VolumeBar from "./VolumeBar";
 
 const TrackLine = () => {
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
@@ -104,25 +103,18 @@ const TrackLine = () => {
     []
   );
 
-  // const songTimeSlider = useCallback(( e: React.MouseEvent<HTMLDivElement, globalThis.MouseEvent>
-  // ): void )=>{
-  //   let slider = sliderClick.current!.clientWidth;
-  //   const offset = e.nativeEvent.offsetX;
-
-  //   const progress = (offset / slider) * 100;
-  //   audioRef.current!.currentTime =
-  //     (progress / 100) * audioRef.current!.duration;
-  // }
-  // },[])
-
-  function errorMes() {
-    alert("Еще не реализовано");
-  }
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume;
     }
   }, [volume]);
+
+  const handleVolume = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    if (audioRef.current) {
+      audioRef.current.volume = Number(event.target.value);
+      setVolume(audioRef.current.volume);
+    }
+  }, []);
 
   const duration = audioRef.current?.duration;
 
@@ -274,26 +266,13 @@ const TrackLine = () => {
             </div>
           </div>
 
-          <div className={styles.volumeBlock}>
-            <div className={styles.volume}>
-              <div className={styles.volumeIcon}>
-                <Image src="/volume.svg" width={13} height={18} alt="volume" />
-              </div>
-              <div className={styles.volumeControl}>
-                <input
-                  className={styles.volumeControlLine}
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.01"
-                  value={volume}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setVolume(Number(e.target.value))
-                  }
-                />
-              </div>
-            </div>
-          </div>
+          <VolumeBar
+            min={0}
+            max={1}
+            step={0.01}
+            value={volume}
+            onChange={handleVolume}
+          />
         </div>
       </div>
     </div>

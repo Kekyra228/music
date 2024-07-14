@@ -1,5 +1,4 @@
 "use client";
-import { useInitializeLikedTracks } from "@/hooks/likes";
 import styles from "./user.module.css";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/hooks/store";

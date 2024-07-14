@@ -121,7 +121,6 @@ const playlistSlice = createSlice({
     setPlaylist: (state, action: PayloadAction<{ tracks: TrackType[] }>) => {
       state.tracks = action.payload.tracks;
       state.filtredPlaylist = action.payload.tracks;
-      state.likedTracks = action.payload.tracks;
     },
     // setLikedTrack: (state, action: PayloadAction<TrackType>) => {
     //   state.likedTracks.push(action.payload);

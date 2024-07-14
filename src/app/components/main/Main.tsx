@@ -7,10 +7,9 @@ import { useCallback, useEffect, useState } from "react";
 
 type Props = {
   tracks: TrackType[];
-  isFavorite?: boolean;
 };
 
-export default function Main({ tracks, isFavorite }: Props) {
+export default function Main({ tracks }: Props) {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch();
   // function renderPlaylist() {
@@ -32,11 +31,7 @@ export default function Main({ tracks, isFavorite }: Props) {
   return (
     <>
       {" "}
-      {isLoading ? (
-        "Загрузка треков..."
-      ) : (
-        <SongList tracks={filtredTracks} isFavorite={isFavorite} />
-      )}
+      {isLoading ? "Загрузка треков..." : <SongList tracks={filtredTracks} />}
     </>
   );
 

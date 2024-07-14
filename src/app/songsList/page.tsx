@@ -29,18 +29,14 @@ export default function MainPageSongs() {
   const tracksAll: TrackType[] = useAppSelector(
     (state) => state.playlist.tracks
   );
-  const favTracks: TrackType[] = useAppSelector(
-    (state) => state.playlist.likedTracks
-  );
+
   useEffect(() => {
     if (!token) {
       dispatch(getAllTracks());
     }
     if (token) {
-      if (favTracks) {
-        dispatch(getFavoriteTracks(token));
-        dispatch(getAllTracks());
-      }
+      dispatch(getFavoriteTracks(token));
+      dispatch(getAllTracks());
     }
   }, [token, dispatch]);
 

@@ -12,7 +12,13 @@ const Navbar = () => {
 
   return (
     <nav className={styles.main_nav}>
-      <Image src="/logo.png" width={113.33} height={17} alt="logo" />
+      <Image
+        src="/logo.png"
+        width={113.33}
+        height={17}
+        alt="logo"
+        fetchPriority="low"
+      />
       <div className={styles.nav_menu}>
         <Image
           className={styles.burger}

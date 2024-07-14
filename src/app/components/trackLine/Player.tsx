@@ -7,11 +7,9 @@ import Image from "next/image";
 
 type Props = {
   track: TrackType;
-  tracks: TrackType[];
-  isFavorite?: boolean;
 };
 
-export default function PlayerLike({ track, tracks, isFavorite }: Props) {
+export default function PlayerLike({ track }: Props) {
   const dispatch = useAppDispatch();
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
   const { isLiked, handleLike } = useLikeTrack({ track });
@@ -19,14 +17,8 @@ export default function PlayerLike({ track, tracks, isFavorite }: Props) {
     return null;
   }
 
-  const addFavorite = () => {
-    dispatch(
-      setCurrentTrack({ currentTrack: { ...currentTrack, isFavorite }, tracks })
-    );
-  };
-
   return (
-    <div className={styles.trackTime} onClick={addFavorite}>
+    <div className={styles.trackTime}>
       <div className={styles.trackTimeLike} onClick={handleLike}>
         {isLiked ? (
           <Image
