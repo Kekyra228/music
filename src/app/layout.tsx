@@ -19,8 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <ReduxProvider>
-        <body className={montserrat.className}>{children}</body>
+      <body className={montserrat.className}>
+        {""}
+        <ReduxProvider> {children}</ReduxProvider>
         <ToastContainer
           position="top-center"
           autoClose={1000}
@@ -32,7 +33,7 @@ export default function RootLayout({
           pauseOnHover
           theme="dark"
         />
-      </ReduxProvider>
+      </body>
     </html>
   );
 }

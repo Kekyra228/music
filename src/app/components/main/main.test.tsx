@@ -3,9 +3,12 @@ import renderer from "react-test-renderer";
 import Main from "./Main";
 import { Provider } from "react-redux";
 import "@testing-library/jest-dom/extend-expect";
+import configureStore from "redux-mock-store";
+import { initialState } from "@/store/features/playlistSlice";
 
 describe("Компонент Main", () => {
-  let store: any;
+  const mockStore = configureStore([]);
+  let store = mockStore({ playlist: initialState });
 
   test("компонент рендерится", () => {
     const component = renderer.create(

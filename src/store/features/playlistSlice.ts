@@ -62,7 +62,7 @@ type PlaylistStateType = {
   likedTracks: TrackType[];
 };
 
-const initialState: PlaylistStateType = {
+export const initialState: PlaylistStateType = {
   isPlaying: false,
   currentTrack: null,
   tracks: [],
