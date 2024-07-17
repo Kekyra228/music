@@ -11,16 +11,15 @@ type Props = {
     id: string;
   };
 };
+interface CollectionResponse {
+  id: number;
+  items: TrackType[];
+}
 export default async function HomeCollection({ params }: Props) {
-  // const dispatch = useAppDispatch();
   let tracks: TrackType[] = [];
   let error: string | null = null;
   try {
     tracks = await getCollections(params.id);
-    // dispatch(setPlaylist({ tracks }));
-    // const filtredTracks = useAppSelector(
-    //   (store) => store.playlist.filtredPlaylist
-    // );
   } catch (err: unknown) {
     error =
       err instanceof Error
@@ -49,7 +48,7 @@ export default async function HomeCollection({ params }: Props) {
       <SearchHeader />
       <h2 className={styles.heading}>{title}</h2>
       <Sorting />
-      <SongList tracks={tracks.items} />
+      <SongList tracks={tracks} />
     </>
   );
 }
