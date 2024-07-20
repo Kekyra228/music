@@ -33,7 +33,6 @@ export default function Signin() {
         dispatch(getUser(formData)).unwrap(),
       ]);
       router.push("/");
-      console.log("вы вошли");
     } catch (error: any) {
       if (error.message === "Неверный пароль или логин") {
         setMessage(error.message);

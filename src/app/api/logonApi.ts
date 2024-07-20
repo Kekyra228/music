@@ -43,7 +43,7 @@ export async function fetchTokens({ email, password }: SigninFormTypes) {
   if (response.status === 400) {
     throw new Error("Неверный токен");
   } else if (!response.ok) {
-    throw new Error("Заполните поля");
+    throw new Error("Что-то пошло не так");
   }
   const responseData = await response.json();
   return responseData;

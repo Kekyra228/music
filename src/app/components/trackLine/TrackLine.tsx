@@ -14,7 +14,6 @@ import VolumeBar from "./VolumeBar";
 
 const TrackLine = () => {
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
-  // const { isLiked, handleLike } = useLikeTrack({ track });
 
   const isShuffledPlaylist = useAppSelector(
     (state) => state.playlist.isShuffled
@@ -64,17 +63,6 @@ const TrackLine = () => {
       audioRef.current?.removeEventListener("ended", handleNext);
     };
   }, [currentTrack]);
-
-  // useEffect(() => {
-  //   if (audioRef.current) {
-  //     audioRef.current.addEventListener("timeupdate", () => {
-  //       setCurrentTimeSong(audioRef.current!.currentTime);
-  //       setProgress(
-  //         (audioRef.current!.currentTime / audioRef.current!.duration) * 100
-  //       );
-  //     });
-  //   }
-  // }, [currentTrack]);
 
   function setCurrentTime(currentTime: number, duration: number) {
     setCurrentTimeSong(currentTime);

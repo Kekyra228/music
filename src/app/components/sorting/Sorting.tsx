@@ -50,7 +50,6 @@ const Sorting = () => {
   };
   return (
     <div className={styles.sortingBlock}>
-      {/* <h2 className={styles.sortingHeading}>Треки</h2> */}
       <div className={styles.centerblock__filter}>
         <div className={styles.filter__title}>Искать по:</div>
         {filterData.map((item, index) => (

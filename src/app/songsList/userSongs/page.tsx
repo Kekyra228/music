@@ -27,7 +27,7 @@ export default function MainFavPageSongs() {
       <SearchHeader />
       <h2 className={styles.heading}>Мои треки</h2>
       <Sorting />
-      <Main tracks={favTracks} isFavorite={true} />
+      <Main tracks={favTracks} />
     </>
   );
 }

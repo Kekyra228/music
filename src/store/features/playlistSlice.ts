@@ -19,6 +19,7 @@ export const getAllTracks = createAsyncThunk("playlist/getTracks", async () => {
     return null;
   }
 });
+
 export const getFavoriteTracks = createAsyncThunk(
   "playlist/getFavoriteTracks",
   async (access: string) => {
@@ -196,7 +197,6 @@ const playlistSlice = createSlice({
             return;
           }
           state.likedTracks = action.payload;
-          console.log(action.payload);
         }
       )
       .addCase(
@@ -206,7 +206,6 @@ const playlistSlice = createSlice({
             return;
           }
           state.tracks = action.payload;
-          console.log(action.payload);
         }
       );
   },

@@ -12,14 +12,7 @@ type Props = {
 export default function Main({ tracks }: Props) {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch();
-  // function renderPlaylist() {
-  //   const memoized = useCallback(() => {
-  //     dispatch(setPlaylist({ tracks }));
-  //   }, [tracks]);
-  // }
-  // useEffect(() => {
-  //   memoized();
-  // }, [memoized]);
+
   useEffect(() => {
     dispatch(setPlaylist({ tracks }));
     setIsLoading(false);
@@ -34,6 +27,4 @@ export default function Main({ tracks }: Props) {
       {isLoading ? "Загрузка треков..." : <SongList tracks={filtredTracks} />}
     </>
   );
-
-  // {/* <TrackLine track={favoriteTracks} /> */};
 }

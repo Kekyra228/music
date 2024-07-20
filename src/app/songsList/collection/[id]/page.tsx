@@ -1,31 +1,30 @@
-// "use client";
+"use client";
 import { getCollections } from "@/app/api/collectionsApi";
 import { TrackType } from "@/types/types";
 import SongList from "@/app/components/songsList/SongsList";
 import SearchHeader from "@/app/components/header/Header";
 import styles from "./homeCollection.module.css";
 import Sorting from "@/app/components/sorting/Sorting";
+import { useAppDispatch, useAppSelector } from "@/hooks/store";
+import { useEffect } from "react";
+import { getAllTracks } from "@/store/features/playlistSlice";
 
 type Props = {
   params: {
     id: string;
   };
 };
-interface CollectionResponse {
-  id: number;
-  items: TrackType[];
-}
-export default async function HomeCollection({ params }: Props) {
-  let tracks: TrackType[] = [];
-  let error: string | null = null;
-  try {
-    tracks = await getCollections(params.id);
-  } catch (err: unknown) {
-    error =
-      err instanceof Error
-        ? "Ошибка при загрузке треков. " + err.message
-        : "Неизвестная ошибка";
-  }
+
+export default function HomeCollection({ params }: Props) {
+  const dispatch = useAppDispatch();
+  const tracksAll: TrackType[] = useAppSelector(
+    (state) => state.playlist.filtredPlaylist
+  );
+
+  useEffect(() => {
+    dispatch(getAllTracks());
+  }, [dispatch]);
+
   let title = "";
   switch (params.id) {
     case "1":
@@ -40,15 +39,13 @@ export default async function HomeCollection({ params }: Props) {
     default:
       break;
   }
-  // const filtredTracks = useAppSelector(
-  //   (store) => store.playlist.filtredPlaylist
-  // );
+
   return (
     <>
       <SearchHeader />
       <h2 className={styles.heading}>{title}</h2>
       <Sorting />
-      <SongList tracks={tracks} />
+      <SongList tracks={tracksAll} />
     </>
   );
 }

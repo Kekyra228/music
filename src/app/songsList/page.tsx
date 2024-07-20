@@ -13,16 +13,6 @@ import {
 } from "@/store/features/playlistSlice";
 
 export default function MainPageSongs() {
-  // let tracks: TrackType[] = [];
-  // let error: string | null = null;
-  // try {
-  //   tracks = await getTracks();
-  // } catch (err: unknown) {
-  //   error =
-  //     err instanceof Error
-  //       ? "Ошибка при загрузке треков. " + err.message
-  //       : "Неизвестная ошибка";
-  // }
   const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.auth.tokens?.access);

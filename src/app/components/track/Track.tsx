@@ -22,8 +22,6 @@ const Track = ({ track, tracks }: Props) => {
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
   const isCurrentTrack = currentTrack?.id === track.id;
 
-  // const likedTracks = useAppSelector((state) => state.playlist.likedTracks);
-
   function playSong() {
     if (currentTrack) {
       if (isPlaying) {

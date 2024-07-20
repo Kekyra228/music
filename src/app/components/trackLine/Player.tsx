@@ -1,7 +1,6 @@
 import styles from "./trackLine.module.css";
 import { useLikeTrack } from "@/hooks/likes";
 import { useAppDispatch, useAppSelector } from "@/hooks/store";
-import { setCurrentTrack, setIsPlaying } from "@/store/features/playlistSlice";
 import { TrackType } from "@/types/types";
 import Image from "next/image";
 
@@ -10,7 +9,6 @@ type Props = {
 };
 
 export default function PlayerLike({ track }: Props) {
-  const dispatch = useAppDispatch();
   const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
   const { isLiked, handleLike } = useLikeTrack({ track });
   if (!currentTrack) {

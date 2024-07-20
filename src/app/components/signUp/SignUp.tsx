@@ -2,19 +2,11 @@
 import Link from "next/link";
 import styles from "./signup.module.css";
 import Image from "next/image";
-// import { authorize } from "@/app/api/authApi";
 import { useState } from "react";
 import { useAppDispatch } from "@/hooks/store";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/store/features/authSlice";
 
-// type Props = {
-//   params: {
-//     email: string;
-//     password: string;
-//     username: string;
-//   };
-// };
 export default function SignUp() {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -45,15 +37,6 @@ export default function SignUp() {
       return;
     }
   }
-  // let error: string | null = null;
-  // const authUser = async () => {
-  //   try {
-  //     await authorize(params.email, params.password, params.username);
-  //   } catch (err: unknown) {
-  //     error =
-  //       err instanceof Error ? "Ошибка" + err.message : "Неизвестная ошибка";
-  //   }
-  // };
 
   return (
     <div className={styles.wrapper}>
