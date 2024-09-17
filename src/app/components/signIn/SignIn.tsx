@@ -1,44 +1,90 @@
+"use client";
 import Link from "next/link";
 import styles from "./signin.module.css";
 import Image from "next/image";
+import { useState } from "react";
+import { useAppDispatch } from "@/hooks/store";
+import { getTokens, getUser } from "@/store/features/authSlice";
+import { useRouter } from "next/navigation";
 
 export default function Signin() {
-    return (
-        <div className={styles.wrapper}>
-        <div className={styles.container}>
-          <div className={styles.block}>
-            <form className={styles.loginForm} action="#">
-              <a href="../">
-                <div className={styles.logo}>
-                    <Image
-                    src="/blackLogo.svg"
-                    width={140}
-                    height={21}
-                    alt="logo"
-                />
-                </div>
-              </a>
-                <input className={styles.inputLogin}
-                    type="text"
-                    name="login"
-                    placeholder="Почта"
-                />
-                <input className={styles.inputLogin}
-                    type="password"
-                    name="password"
-                    placeholder="Пароль"
-                />
-            
-              <button className={styles.btnEnter}>
-                <Link href="../"><p className={styles.btnEnterText}>Войти</p></Link>
-              </button>
-              <button className={styles.btnSignUp}>
-                    <Link href="signup"><p className={styles.btnSignUpText}>Зарегестрироваться</p></Link>
+  const [message, setMessage] = useState("");
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
 
-              </button>
-            </form>
-          </div>
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        [name]: value,
+      };
+    });
+  }
+  async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+
+    try {
+      await Promise.all([
+        dispatch(getTokens(formData))
+          .unwrap()
+          .then(() => {}),
+        dispatch(getUser(formData)).unwrap(),
+      ]);
+      router.push("/");
+    } catch (error: any) {
+      if (error.message === "Неверный пароль или логин") {
+        setMessage(error.message);
+      } else if (error.message === "Заполните поля") {
+        setMessage(error.message);
+      }
+    }
+  }
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        <div className={styles.block}>
+          <form className={styles.loginForm} action="#">
+            <a href="../">
+              <div className={styles.logo}>
+                <Image
+                  src="/blackLogo.svg"
+                  width={140}
+                  height={21}
+                  alt="logo"
+                />
+              </div>
+            </a>
+            <input
+              className={styles.inputLogin}
+              type="text"
+              name="email"
+              placeholder="Почта"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <input
+              className={styles.inputLogin}
+              type="password"
+              name="password"
+              placeholder="Пароль"
+              value={formData.password}
+              onChange={handleChange}
+            />
+
+            <button className={styles.btnEnter} onClick={handleSubmit}>
+              <p className={styles.btnEnterText}>Войти</p>
+            </button>
+            <button className={styles.btnSignUp}>
+              <Link href="/signup">
+                <p className={styles.btnSignUpText}>Зарегестрироваться</p>
+              </Link>
+            </button>
+            {message && <p className={styles.errorMes}>{message}</p>}
+          </form>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}

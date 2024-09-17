@@ -1,5 +1,5 @@
 "use client";
-
+import styles from "./styles/common.module.css";
 import { useEffect } from "react";
 
 export default function Error({
@@ -14,9 +14,11 @@ export default function Error({
   }, [error]);
 
   return (
-    <div>
-      <h2>Что-то пошло не так!</h2>
-      <button onClick={reset}>Попробовать снова</button>
+    <div className={styles.wrapper}>
+      <div className={styles.contain}>
+        <h2>Что-то пошло не так!</h2>
+        <button onClick={reset}>Попробовать снова</button>
+      </div>
     </div>
   );
 }

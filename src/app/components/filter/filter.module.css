@@ -15,6 +15,11 @@
   color: rgb(173, 97, 255);
   border-color: rgb(173, 97, 255);
 }
+.filterBtnActive {
+  color: rgb(173, 97, 255);
+  border-color: rgb(173, 97, 255);
+}
+
 .list {
   margin-top: 10px;
   background-color: rgb(49, 49, 49);
@@ -33,7 +38,24 @@
   font-size: 20px;
   font-weight: 400;
 }
+.listItemActive {
+  color: rgb(173, 97, 255);
+}
 .listItem:hover {
   color: rgb(173, 97, 255);
   text-decoration: underline;
+  cursor: pointer;
+}
+
+.filterCount {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(173, 97, 255);
+  border-radius: 50%;
+  position: absolute;
+  color: #ffffff;
+  text-align: center;
+  right: -10px;
+  bottom: 20px;
+  padding-top: 1px;
 }

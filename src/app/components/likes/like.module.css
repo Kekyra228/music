@@ -1,0 +1,20 @@
+.trackTime {
+  display: flex;
+  align-items: center;
+}
+.trackTimeLike {
+  width: 14px;
+  height: 12px;
+  margin-right: 17px;
+  fill: transparent;
+  stroke: #696969;
+  margin-bottom: 5px;
+}
+.trackTimeText {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: right;
+  color: #696969;
+}

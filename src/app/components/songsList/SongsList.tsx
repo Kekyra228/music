@@ -1,11 +1,17 @@
+"use client";
 import Image from "next/image";
 import styles from "./songlist.module.css";
-import { getTracks } from "@/app/api/userApi";
 import { TrackType } from "@/types/types";
+import Track from "../track/Track";
+import { useAppSelector } from "@/hooks/store";
+import { useState } from "react";
 
-const SongList = async () => {
-  const tracks: TrackType[] = await getTracks();
+type Props = {
+  tracks: TrackType[];
+};
 
+const SongList = ({ tracks }: Props) => {
+  const [isLoading, setIsLoading] = useState(true);
   return (
     <div className={styles.centerblock__content_playlist}>
       <div className={styles.content_playlist_title}>
@@ -18,51 +24,11 @@ const SongList = async () => {
       </div>
 
       <div className={styles.list_wrapper}>
-        {tracks.map((value, index: number) => {
-          return (
-            <div className={styles.playlistItem} key={index}>
-              <div className={styles.playlistTrack}>
-                <div className={styles.trackTitle}>
-                  <div className={styles.trackTitleIcon}>
-                    <Image
-                      src="/songIcon.svg"
-                      width={51}
-                      height={51}
-                      alt="icon"
-                    />
-                  </div>
-                  <div className={styles.trackTitle}>
-                    <a className={styles.trackTitleLink} href="http://">
-                      {value.name} <span className="track__title-span"></span>
-                    </a>
-                  </div>
-                </div>
-
-                <div className={styles.trackAuthor}>
-                  <a className={styles.trackAuthorLink} href="http://">
-                    {value.author} <span className="track__title-span"></span>
-                  </a>
-                </div>
-
-                <div className={styles.trackAlbum}>
-                  <a className={styles.trackAlbumLink} href="http://">
-                    {value.album}
-                    <span className="track__title-span"></span>
-                  </a>
-                </div>
-
-                <div className={styles.trackTime}>
-                  <div className={styles.trackTimeLike}>
-                    <Image src="/like.svg" width={14} height={12} alt="like" />
-                  </div>
-                  <span className={styles.trackTimeText}>
-                    {value.duration_in_seconds}
-                  </span>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {tracks.length === 0 ? "Треков не найдено" : ""}
+        {isLoading}
+        {tracks.map((value) => (
+          <Track key={value.id} track={value} tracks={tracks} />
+        ))}
       </div>
     </div>
   );
