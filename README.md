@@ -20,13 +20,13 @@
    git clone https://github.com/Kekyra228/music.git
    
 2.Перейдите в директорию проекта:
-  -cd skypro-music
+ cd skypro-music
 
 3.Установите зависимости:
-  -npm install
+npm install
 
 4.Запустите сервер разработки:
-  -npm run dev
+npm run dev
 
 
 
