@@ -45,12 +45,7 @@ export default function SignUp() {
           <form className={styles.loginForm}>
             <a href="../">
               <div className={styles.logo}>
-                <Image
-                  src="/blackLogo.svg"
-                  width={140}
-                  height={21}
-                  alt="logo"
-                />
+                <Image src="/logo.svg" width={50} height={50} alt="logo" />
               </div>
             </a>
             <input

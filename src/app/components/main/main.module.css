@@ -2,7 +2,7 @@
   width: 100%;
   min-height: 100%;
   overflow: hidden;
-  background-color: #383838;
+  background-color: #2d003a;
 }
 
 .container {
@@ -10,7 +10,7 @@
   height: 100vh;
   margin: 0 auto;
   position: relative;
-  background-color: #181818;
+  background: linear-gradient(135deg, #1b1b2f, #6a0572);
 }
 
 .main {

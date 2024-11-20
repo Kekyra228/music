@@ -1,7 +1,8 @@
 .main_nav {
   width: 244px;
-  background-color: rgb(28, 28, 28);
   padding: 20px 0 20px 36px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  height: 100vh;
 }
 .nav_menu {
   display: block;
@@ -21,4 +22,6 @@
 }
 .burger {
   margin-bottom: 36px;
+}
+.logo {
 }

@@ -12,17 +12,19 @@
   text-align: center;
 }
 .filterBtn:hover {
-  color: rgb(173, 97, 255);
-  border-color: rgb(173, 97, 255);
+  color: #e0a3ff;
+  border-color: #e0a3ff;
+  transition: color 0.3s ease;
 }
 .filterBtnActive {
-  color: rgb(173, 97, 255);
-  border-color: rgb(173, 97, 255);
+  color: #e0a3ff;
+  border-color: #e0a3ff;
+  transition: color 0.3s ease;
 }
 
 .list {
   margin-top: 10px;
-  background-color: rgb(49, 49, 49);
+  background-color: #6a0572;
   position: absolute;
   width: 248px;
   height: auto;
@@ -32,6 +34,7 @@
   display: flex;
   flex-direction: column;
   gap: 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .listItem {
@@ -39,12 +42,14 @@
   font-weight: 400;
 }
 .listItemActive {
-  color: rgb(173, 97, 255);
+  color: #e0a3ff;
+  transition: color 0.3s ease;
 }
 .listItem:hover {
-  color: rgb(173, 97, 255);
+  color: #e0a3ff;
   text-decoration: underline;
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .filterCount {

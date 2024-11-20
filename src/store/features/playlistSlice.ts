@@ -14,6 +14,7 @@ type LikesType = {
 export const getAllTracks = createAsyncThunk("playlist/getTracks", async () => {
   try {
     const allTracks = await getTracks();
+    console.log(allTracks);
     return allTracks;
   } catch (error) {
     return null;

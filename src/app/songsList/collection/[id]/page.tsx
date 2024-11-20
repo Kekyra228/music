@@ -1,5 +1,4 @@
 "use client";
-import { getCollections } from "@/app/api/collectionsApi";
 import { TrackType } from "@/types/types";
 import SongList from "@/app/components/songsList/SongsList";
 import SearchHeader from "@/app/components/header/Header";
